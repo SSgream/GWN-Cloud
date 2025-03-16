@@ -1,13 +1,9 @@
 import Image from "next/image";
-
+import { Beranda } from "@/features/beranda/Beranda";
 export default function Home() {
   return (
     <div>
-      
-      <main>
-        <Beranda />
-      </main>
-
+        <Beranda />;
     </div>
   );
 }
