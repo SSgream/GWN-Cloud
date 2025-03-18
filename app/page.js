@@ -1,9 +1,12 @@
-import Image from "next/image";
-import { Beranda } from "@/features/beranda/Beranda";
+import Beranda from "@/features/beranda/Beranda";
+import Navbar from "@/components/navbar/Navbar";
+import Footer from "@/components/footer/Footer";
 export default function Home() {
   return (
     <div>
-        <Beranda />;
+      <Navbar />;
+      <Beranda />;
+      <Footer />;
     </div>
   );
 }
