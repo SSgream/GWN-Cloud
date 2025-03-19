@@ -18,7 +18,7 @@ export default function Navbar() {
         {/* Menu Desktop */}
         <ul className="hidden md:flex space-x-6 text-lg">
           <li><Link href="/" className="hover:underline">Beranda</Link></li>
-          <li><Link href="/profil" className="hover:underline">Profil</Link></li>
+          <li><Link href="/profile" className="hover:underline">Profil</Link></li>
           <li><Link href="/berita" className="hover:underline">Berita</Link></li>
           <li><Link href="/akademik" className="hover:underline">Akademik</Link></li>
           <li><Link href="/prestasi" className="hover:underline">Prestasi</Link></li>
