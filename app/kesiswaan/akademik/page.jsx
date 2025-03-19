@@ -1,12 +1,12 @@
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
-import DataSiswa from "@/features/akademik/DataSiswa";
+import Akademik from "@/features/kesiswaan/Akademik";
 
-export default function PageDataSiswa() {
+export default function PageAkademik() {
     return (
       <div>
         <Navbar />
-        <DataSiswa />
+        <Akademik />
         <Footer />
       </div>
     );

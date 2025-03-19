@@ -1,12 +1,12 @@
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
-import Prestasi from "@/features/prestasi/Prestasi";
+import Ekstrakurikuler from "@/features/kesiswaan/Ekstrakurikuler";
 
-export default function PagePrestasi() {
+export default function PageEkstrakurikuler() {
     return (
       <div>
         <Navbar />
-        <Prestasi />
+        <Ekstrakurikuler />
         <Footer />
       </div>
     );
