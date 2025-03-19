@@ -1,6 +1,6 @@
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
-import Akademik from "@/features/akademik/Akademi";
+import Akademik from "@/features/akademik/Akademik";
 
 export default function PageAkademik() {
     return (

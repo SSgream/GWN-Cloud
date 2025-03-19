@@ -1,12 +1,12 @@
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
-import Profile from "@/features/profile/Profile";
+import Ekstrakurikuler from "@/features/akademik/Ekstrakurikuler";
 
-export default function PageProfile() {
+export default function PageEkstrakurikuler() {
     return (
       <div>
         <Navbar />
-        <Profile />
+        <Ekstrakurikuler />
         <Footer />
       </div>
     );
