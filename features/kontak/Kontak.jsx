@@ -73,57 +73,6 @@ export default function Kontak() {
           loading="lazy"
         ></iframe>
       </div>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
-          <div>
-            <h2 className="font-bold">Alamat</h2>
-            <p>
-              Pandua, Desa Bulo-Bulo, Kec. Rilau Ale, Kab. Bulukumba, Sulawesi
-              Selatan, Indonesia
-            </p>
-            <p>Email: info@smpn1cidabak.sch.id</p>
-          </div>
-          <div>
-            <h2 className="font-bold">Jelajah</h2>
-            <ul>
-              <li>
-                <a href="#" className="hover:underline">
-                  Profil Sekolah
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:underline">
-                  Berita
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:underline">
-                  Galeri
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h2 className="font-bold">Media Sosial</h2>
-            <div className="flex justify-center md:justify-start space-x-4">
-              <a href="#" className="hover:text-blue-400">
-                FB
-              </a>
-              <a href="#" className="hover:text-blue-400">
-                TW
-              </a>
-              <a href="#" className="hover:text-blue-400">
-                IG
-              </a>
-            </div>
-          </div>
-        </div>
-        <p className="text-center mt-6">
-          &copy; 2024 SMPN 1 Cidabak. All Rights Reserved.
-        </p>
-      </footer>
     </div>
   );
 }

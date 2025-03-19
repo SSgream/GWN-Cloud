@@ -9,17 +9,16 @@ export const Navlink = [
         { title: "Data Guru", href: "/profile/DataGuru" }
       ]
     },
-    { title: "Berita", href: "/berita" },
+    { title: "Kurikulum", href: "/kurikulum" },
     { 
-      title: "Akademik", 
-      href: "/akademik",
+      title: "Kesiswaaan", 
+      href: "/kesiswaan",
       submenu: [
-        { title: "Kesiswaan", href: "/akademik-dan-kesiswaan/akademik" },
-        { title: "Ekstrakurikuler", href: "/akademik-dan-kesiswaan/ekstrakurikuler" },
-        { title: "Data Siswa", href: "/akademik-dan-kesiswaan/data-siswa" }
+        { title: "Prestasi", href: "/kesiswaan/prestasi" },
+        { title: "Ekstrakurikuler", href: "/dan-kesiswaan/ekstrakurikuler" },
+        { title: "Data Siswa", href: "/kesiswaan/data-siswa" }
       ]
     },
-    { title: "Prestasi", href: "/prestasi" },
+    { title: "Berita", href: "/prestasi" },
     { title: "Kontak", href: "/kontak" }
   ];
-  

@@ -4,6 +4,7 @@ import Link from "next/link";
 export default function Berita() {
   const newsArticles = [
     {
+      id: 1,
       title: "Penerimaan Rapot",
       description:
         "Lorem ipsum dolor sit amet adipiscing ipsum dolor sit amet adipiscing aqua lorem.",
@@ -11,6 +12,7 @@ export default function Berita() {
       link: "/news/1",
     },
     {
+      id: 2,
       title: "Kegiatan Belajar Mengajar",
       description:
         "Lorem ipsum dolor sit amet adipiscing ipsum dolor sit amet adipiscing aqua lorem.",
@@ -18,6 +20,7 @@ export default function Berita() {
       link: "/news/2",
     },
     {
+      id: 3,
       title: "Pemberian Makanan Tambahan",
       description:
         "Lorem ipsum dolor sit amet adipiscing ipsum dolor sit amet adipiscing aqua lorem.",
