@@ -68,7 +68,7 @@ export default function Kontak() {
       <div className="container mx-auto py-12 px-4">
         <iframe
           className="w-full h-[400px] rounded-lg"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!..."
+          src="https://www.google.com/maps/place/5%C2%B026'03.0%22S+120%C2%B011'31.4%22E/@-5.434164,120.1914103,19z/data=!3m1!4b1!4m4!3m3!8m2!3d-5.434164!4d120.192054?entry=ttu&g_ep=EgoyMDI1MDMxNy4wIKXMDSoASAFQAw%3D%3D"
           allowFullScreen=""
           loading="lazy"
         ></iframe>

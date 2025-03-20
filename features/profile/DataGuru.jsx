@@ -1,93 +1,59 @@
-'use client'
-
+"use client";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { useState } from "react";
-
-const teachers = [
-  {
-    name: "RAHMI ANNISA, S.Pd., Gr",
-    nip: "-",
-    position: "Kepala Sekolah",
-    image: "/images/teacher1.jpg",
-  },
-  {
-    name: "IWANA, S.Pd",
-    nip: "-",
-    position: "Guru TK B",
-    image: "/images/teacher2.jpg",
-  },
-  {
-    name: "A. JUMRANA, S.Pd",
-    nip: "-",
-    position: "Guru TK A",
-    image: "/images/teacher3.jpg",
-  },
-  {
-    name: "MEGAWATI, S.Pd",
-    nip: "-",
-    position: "Guru PAI",
-    image: "/images/teacher4.jpg",
-  },
-  {
-    name: "NUR ILMI, S.Pd",
-    nip: "-",
-    position: "Pendamping TK A",
-    image: "/images/teacher5.jpg",
-  },
-];
 
 export default function DataGuru() {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [images, setImages] = useState([]);
 
-  const filteredTeachers = teachers.filter((teacher) =>
-    teacher.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const res = await fetch("/api/list-image");
+        const data = await res.json();
+  
+        // Filter hanya gambar yang memenuhi semua syarat
+        const validImages = data
+          .filter(img => img.folder === "profile" && img.subFolder === "fasilitas") // Pastikan foldernya benar
+          .filter(img => img.url && img.url.endsWith(".jpg") && img.name); // Pastikan URL valid dan ada namanya
+  
+        setImages(validImages);
+      } catch (error) {
+        console.error("Error fetching images:", error);
+      }
+    };
+  
+    fetchImages();
+    const interval = setInterval(fetchImages, 30000);
+    return () => clearInterval(interval);
+  }, []);
+  
+
+  console.log("Jumlah gambar yang dirender:", images.length);
+
 
   return (
-    <div className="bg-gray-100 min-h-screen">
-      {/* Header */}
-      <div className="relative w-full h-[400px] bg-black">
-        <img
-          src="/images/banner.png"
-          alt="Data Guru"
-          className="w-full h-full object-cover opacity-60"
-        />
-        <div className="absolute inset-0 flex items-center justify-center text-white text-2xl font-bold">
-          Data Guru
-        </div>
-      </div>
-
-      {/* Search Bar */}
-      <div className="container mx-auto mt-8 px-4 flex justify-end">
-  <input
-    type="text"
-    placeholder="🔍 Search Teacher"
-    className="w-64 p-3 border rounded-lg shadow-sm focus:outline-none"
-    onChange={(e) => setSearchTerm(e.target.value)}
-  />
-</div>
-
-
-      {/* Data Guru */}
-      <div className="container mx-auto py-10 px-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-6">
-          {filteredTeachers.map((teacher, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden">
+    <div className="container mx-auto py-12 px-4">
+      <h1 className="text-3xl font-bold text-center mt-20 mb-6">Galeri Data Guru</h1>
+      <div className="grid md:grid-cols-3 gap-6">
+        {images.length > 0 ? (
+          images.map((img, index) => (
+            <div key={index} className="bg-white shadow-lg rounded-lg overflow-hidden">
               <Image
-                src={teacher.image}
-                alt={teacher.name}
-                width={300}
-                height={350}
-                className="w-full h-56 object-cover"
+                src={img.url}
+                alt={img.name}
+                width={400}
+                height={250}
+                className="w-full h-48 object-cover"
+                unoptimized
               />
               <div className="p-4">
-                <h3 className="text-lg font-bold">Nama : {teacher.name}</h3>
-                <p className="text-gray-600 text-sm">NIP   : {teacher.nip}</p>
-                <p className="text-gray-600 font-semibold">Jabatan : {teacher.position}</p>
+                <p className="text-gray-600">{img.name}</p>
               </div>
             </div>
-          ))}
-        </div>
+          ))
+        ) : (
+          <p className="text-center text-gray-500">Memuat gambar...</p>
+        )}
       </div>
     </div>
   );

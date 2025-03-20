@@ -19,6 +19,6 @@ export const Navlink = [
         { title: "Data Siswa", href: "/kesiswaan/data-siswa" }
       ]
     },
-    { title: "Berita", href: "/prestasi" },
+    { title: "Berita", href: "/berita" },
     { title: "Kontak", href: "/kontak" }
   ];
