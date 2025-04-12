@@ -1,55 +1,55 @@
-const Footer = () => {
-    return (
-      <footer className="bg-gray-100 text-gray-800 py-8">
-        <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
-          {/* Logo dan Kontak */}
-          <div className="flex flex-col items-center md:items-start">
-            <img src="/images/logo_rpl.png" alt="Logo Sekolah" className="w-16 h-16 mb-4" />
-            <p>Parukku, Desa Bulolohe, Kec. Rilau Ale, Kab. Bulukumba, Sulawesi Selatan, Indonesia</p>
-            <p className="font-bold mt-2">info@smpn1cibadak.sch.id</p>
-            <p className="font-bold">tkazizah22007@gmail.com</p>
-          </div>
-  
-          {/* Navigasi */}
+import Image from 'next/image';
+
+export default function Footer() {
+  return (
+    <footer className="bg-[#f2fdd9] py-10 px-6 md:px-20">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-sm text-black">
+        {/* Logo + Deskripsi */}
+        <div className="flex flex-col items-start">
+          <Image src="/images/logo_rpl.png" alt="Logo" width={80} height={80} className="mb-4" />
+          <p className="leading-relaxed mt-2 max-w-sm">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+        </div>
+
+        {/* Akses Cepat */}
+        <div className="flex flex-col md:flex-row justify-between gap-10">
           <div>
-            <h3 className="font-bold text-lg">Jelajah</h3>
-            <ul className="mt-2 space-y-1">
-              <li><a href="#" className="hover:underline">Sambutan</a></li>
-              <li><a href="#" className="hover:underline">Profil Sekolah</a></li>
-              <li><a href="#" className="hover:underline">Berita</a></li>
-              <li><a href="#" className="hover:underline">Galeri</a></li>
+            <h4 className="font-bold mb-2">Akses Cepat</h4>
+            <ul className="space-y-1">
+              <li>Profil</li>
+              <li>Program</li>
+              <li>Kegiatan</li>
+              <li>Testimoni</li>
+              <li>Kontak</li>
             </ul>
           </div>
-  
-          {/* Halaman Umum */}
-          <div>
-            <h3 className="font-bold text-lg">Halaman Umum</h3>
-            <ul className="mt-2 space-y-1">
-              <li><a href="#" className="hover:underline">Data Guru</a></li>
-              <li><a href="#" className="hover:underline">PPDB SMPN 1 Cibadak</a></li>
-              <li><a href="#" className="hover:underline">Panduan PPDB</a></li>
-              <li><a href="#" className="hover:underline">Lokasi</a></li>
-              <li><a href="#" className="hover:underline">Kontak</a></li>
+          <div className="mt-7 md:mt-0">
+            <ul className="space-y-1">
+              <li>Daftar PPDB</li>
+              <li>Panduan PPDB 2025</li>
+              <li>Fasilitas</li>
+              <li>Guru dan Staff</li>
             </ul>
           </div>
-  
-          {/* Media Sosial */}
-          <div>
-            <h3 className="font-bold text-lg">Media Sosial</h3>
-            <div className="flex justify-center md:justify-start mt-2 space-x-2">
-              <a href="#" className="p-2 bg-gray-200 rounded-lg hover:bg-gray-300"><i className="fab fa-twitter"></i></a>
-              <a href="#" className="p-2 bg-gray-200 rounded-lg hover:bg-gray-300"><i className="fab fa-facebook"></i></a>
-              <a href="#" className="p-2 bg-gray-200 rounded-lg hover:bg-gray-300"><i className="fab fa-instagram"></i></a>
-            </div>
+        </div>
+
+        {/* Kontak */}
+        <div className="ml-20 space-y-4">
+          <div className="flex items-start gap-3">
+            <span className="text-yellow-600 text-lg mt-1">📍</span>
+            <p>Parukku, Desa Bulolohe,<br />Kec. Rilau Ale, Kab. Bulukumba</p>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="text-yellow-600 text-lg">📞</span>
+            <p>-</p>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="text-yellow-600 text-lg">✉️</span>
+            <p>tkazizah22007@gmail.com</p>
           </div>
         </div>
-        
-        {/* Copyright */}
-        <div className="pl-20 text-sm mt-6 border-t pt-4">
-          Copyright © TK Azizah 2. All Rights Reserved.
-        </div>
-      </footer>
-    );
-  };
-  
-  export default Footer;
+      </div>
+    </footer>
+  );
+}

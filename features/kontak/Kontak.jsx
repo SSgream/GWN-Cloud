@@ -1,77 +1,73 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 export default function Kontak() {
   return (
-    <div className="bg-gray-100">
-      {/* Hero Section */}
-      <header className="relative w-full h-[500px] bg-black">
-        <Image
-          src="/images/banner.png"
-          layout="fill"
-          objectFit="cover"
-          alt="Taman Kanak-Kanak Azizah 2"
-          className="opacity-50"
-        />
-        <div className="absolute inset-0 flex flex-col justify-center items-center text-white">
-          <h1 className="text-4xl font-bold">Kontak Kami</h1>
-          <p className="mt-2">
-            Jika Memiliki Pertanyaan? Langsung isi Form Dibawah Ini
-          </p>
-        </div>
-      </header>
+    <div className="bg-white min-h-screen pt-44 py-12 px-6 md:px-20">
+      {/* Heading */}
+      <div className="text-center mb-10">
+        <h2 className="text-3xl font-bold mb-2">Kontak</h2>
+        <p className="text-sm text-gray-700">
+          Jika Memiliki Pertanyaan dan Testimoni Bisa Langsung Isi Form Dibawah Ini
+        </p>
+      </div>
 
-      {/* Contact Form */}
-      <div className="container mx-auto mt-12 py-12 px-4 max-w-4xl bg-white shadow-md rounded-lg">
-        <form className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label className="block font-semibold">Nama</label>
-              <input
-                type="text"
-                placeholder="Masukkan nama"
-                className="w-full p-3 bg-gray-100 rounded-lg"
-              />
-            </div>
-            <div>
-              <label className="block font-semibold">Email</label>
-              <input
-                type="email"
-                placeholder="emailkamu@gmail.com"
-                className="w-full p-3 bg-gray-100 rounded-lg"
-              />
-            </div>
-          </div>
+      {/* Form */}
+      <form className=" mx-auto space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block font-semibold">No Telp</label>
+            <label className="block mb-1 text-sm">Nama</label>
             <input
               type="text"
-              placeholder="+62"
-              className="w-full p-3 bg-gray-100 rounded-lg"
+              placeholder="Nama kamu"
+              className="w-full border-none bg-gray-100 p-3 rounded focus:outline-none"
             />
           </div>
           <div>
-            <label className="block font-semibold">Isi Pesan</label>
-            <textarea
-              placeholder="Pesan kamu"
-              className="w-full p-3 rounded-lg bg-gray-100 h-32"
-            ></textarea>
+            <label className="block mb-1 text-sm">Email</label>
+            <input
+              type="email"
+              placeholder="emailkamu@gmail.com"
+              className="w-full border-none bg-gray-100 p-3 rounded focus:outline-none"
+            />
           </div>
-          <div className="flex justify-center">
-            <button className="w-75 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700">
-              Kirim
-            </button>
-          </div>
-        </form>
-      </div>
+        </div>
+        <div>
+          <label className="block mb-1 text-sm">No Telp</label>
+          <input
+            type="tel"
+            placeholder="+62"
+            className="w-full border-none bg-gray-100 p-3 rounded focus:outline-none"
+          />
+        </div>
+        <div>
+          <label className="block mb-1 text-sm">Isi Pesan</label>
+          <textarea
+            rows="5"
+            placeholder="Pesan kamu"
+            className="w-full border-none bg-gray-100 p-3 rounded resize-none focus:outline-none"
+          />
+        </div>
+        <div className="text-center">
+          <button
+            type="submit"
+            className="bg-green-700 hover:bg-green-800 text-white py-2 px-28 rounded font-semibold"
+          >
+            Kirim
+          </button>
+        </div>
+      </form>
 
-      {/* Map Section */}
-      <div className="container mx-auto py-12 px-4">
-        <iframe
-          className="w-full h-[400px] rounded-lg"
-          src="https://www.google.com/maps/place/5%C2%B026'03.0%22S+120%C2%B011'31.4%22E/@-5.434164,120.1914103,19z/data=!3m1!4b1!4m4!3m3!8m2!3d-5.434164!4d120.192054?entry=ttu&g_ep=EgoyMDI1MDMxNy4wIKXMDSoASAFQAw%3D%3D"
-          allowFullScreen=""
-          loading="lazy"
-        ></iframe>
+      {/* Map + Info Sekolah */}
+      <div className="flex justify-center mt-16">
+        <div className="w-full max-w-2xl rounded overflow-hidden shadow-md">
+          <Image
+            src="/map-preview.png" // Ubah ke gambar peta kamu
+            alt="Peta Lokasi TK Azizah 2"
+            width={800}
+            height={400}
+            className="rounded"
+          />
+        </div>
       </div>
     </div>
   );

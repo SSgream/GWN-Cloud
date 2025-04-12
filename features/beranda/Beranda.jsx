@@ -1,67 +1,42 @@
 import Image from "next/image";
-import Link from "next/link";
 
-export default function Beranda() {
+export default function Home() {
   return (
-    <div className="bg-gray-100">
-      {/* Hero Section */}
-      <header className="relative w-full h-[500px] bg-black">
+    <main className="">
+      {/* Background Image */}
+      <div className="absolute inset-0 -z-10">
         <Image
-          src="/images/banner.png"
-          layout="fill"
-          objectFit="cover"
-          alt="Taman Kanak-Kanak Azizah 2"
-          className="opacity-50"
+          src="/images/ayy.jpg" // ganti path sesuai lokasi gambar kamu
+          alt="Background"
+          fill
+          className="object-cover opacity-30" // atur opacity agar konten tetap terbaca
         />
-        <div className="absolute inset-0 flex flex-col justify-center items-center text-white">
-          <h1 className="text-4xl font-bold">Taman Kanak-Kanak Azizah 2</h1>
-          <Link href="#" className="mt-4 px-6 py-2 bg-blue-500 text-white rounded-md">Read More</Link>
-        </div>
-      </header>
+      </div>
 
-      {/* Sambutan Kepala Sekolah */}
-      <section className="container mx-auto my-12 px-6">
-        <div className="flex flex-col md:flex-row items-center">
-          <div className="md:w-1/2">
-            <Image src="/kepala-sekolah.jpg" width={500} height={300} alt="Kepala Sekolah" />
-          </div>
-          <div className="md:w-1/2 p-6">
-            <h2 className="text-2xl font-bold">Sambutan Kepala Sekolah</h2>
-            <p className="text-gray-700 mt-4">Puji dan syukur mari kita panjatkan ...</p>
-            <Link href="#" className="mt-4 inline-block text-blue-500">Lebih Lanjut</Link>
-          </div>
+      {/* Hero Section */}
+      <section className="grid grid-cols-1 md:grid-cols-2 items-center p-10 md:p-20">
+        <div className="space-y-6 pl-30 pt-36">
+          <h1 className="text-3xl md:text-5xl font-fredoka font-bold text-gray-900">
+            Taman Kanak - Kanak <br /> Azizah 2
+          </h1>
+          <p className="text-md pt-10 underline text-black font-medium">
+            Pendaftaran dibuka 20–24 April
+          </p>
+          <button className="bg-orange-400 hover:bg-orange-600 text-white px-14 py-4 rounded-full">
+            Daftar
+          </button>
         </div>
-      </section>
-
-      {/* Profil Sekolah */}
-      <section className="bg-white py-12">
-        <div className="container mx-auto px-6">
-          <h2 className="text-2xl font-bold text-center">Profil Sekolah</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
-            {['Fasilitas', 'Lokasi', 'Visi Misi', 'Prestasi'].map((item, index) => (
-              <div key={index} className="p-6 border rounded-lg shadow-sm text-center">
-                <h3 className="font-bold text-lg">{item}</h3>
-                <p className="text-gray-600 mt-2">Lorem ipsum dolor sit amet.</p>
-              </div>
-            ))}
+        <div className="flex justify-center mt-10 pt-36 md:mt-0">
+          <div className="relative w-64 h-64 md:w-80 md:h-80">
+            <Image
+              src="/images/logoo.png"
+              alt="Child"
+              fill
+              className="rounded-[30%] object-cover"
+            />
           </div>
         </div>
       </section>
-
-      {/* Berita dan Agenda */}
-      <section className="container mx-auto my-12 px-6">
-        <h2 className="text-2xl font-bold">Berita dan Agenda</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
-          {Array(4).fill(0).map((_, index) => (
-            <div key={index} className="bg-white p-4 rounded-lg shadow-md">
-              <Image src="/news.jpg" width={400} height={200} alt="Berita" className="rounded-md" />
-              <h3 className="font-bold mt-2">Berita {index + 1}</h3>
-              <p className="text-gray-600">Lorem ipsum dolor sit amet.</p>
-              <Link href="#" className="text-blue-500 mt-2 inline-block">Baca Selengkapnya</Link>
-            </div>
-          ))}
-        </div>
-      </section>
-    </div>
+    </main>
   );
 }
