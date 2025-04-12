@@ -1,24 +1,15 @@
 export const Navlink = [
     { title: "Beranda", href: "/" },
     { 
-      title: "Profile", 
-      href: "/profile",
-      submenu: [
-        { title: "Visi Misi", href: "/profile/VisiMisi" },
-        { title: "Fasilitas", href: "/profile/Fasilitas" },
-        { title: "Data Guru", href: "/profile/DataGuru" }
-      ]
-    },
-    { title: "Kurikulum", href: "/kurikulum" },
-    { 
-      title: "Kesiswaaan", 
+      title: "Profil", 
       href: "/kesiswaan",
       submenu: [
-        { title: "Prestasi", href: "/kesiswaan/prestasi" },
-        { title: "Ekstrakurikuler", href: "/dan-kesiswaan/ekstrakurikuler" },
-        { title: "Data Siswa", href: "/kesiswaan/data-siswa" }
+        { title: "Visi Misi", href: "/profil/VisiMisi" },
+        { title: "Fasilitas", href: "/profil/fasilitas" },
       ]
     },
-    { title: "Berita", href: "/berita" },
-    { title: "Kontak", href: "/kontak" }
+    { title: "Program", href: "/program" },
+    { title: "Kegiatan", href: "/kegiatan" },
+    { title: "Testimoni", href: "/testimoni" },
+    { title: "Kontak", href: "/kontak" },
   ];
