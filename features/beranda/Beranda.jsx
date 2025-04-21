@@ -14,15 +14,15 @@ export default function Home() {
       </div>
 
       {/* Hero Section */}
-      <section className="grid grid-cols-1 md:grid-cols-2 items-center p-10 md:p-20">
+      <section className="grid items-center grid-cols-1 p-10 md:grid-cols-2 md:p-20">
         <div className="space-y-6 pl-30 pt-36">
-          <h1 className="text-3xl md:text-5xl font-fredoka font-bold text-gray-900">
+          <h1 className="text-3xl font-bold text-gray-900 md:text-5xl font-fredoka">
             Taman Kanak - Kanak <br /> Azizah 2
           </h1>
-          <p className="text-md pt-10 underline text-black font-medium">
+          <p className="pt-10 font-medium text-black underline text-md">
             Pendaftaran dibuka 20–24 April
           </p>
-          <button className="bg-orange-400 hover:bg-orange-600 text-white px-14 py-4 rounded-full">
+          <button className="py-4 text-white bg-orange-400 rounded-full hover:bg-orange-600 px-14">
             Daftar
           </button>
         </div>
