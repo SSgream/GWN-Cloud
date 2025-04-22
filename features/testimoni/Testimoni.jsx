@@ -1,50 +1,35 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
-
-const testimonials = [
-  {
-    name: 'John Doe',
-    image: '/images/hero.png',
-    text: 'Lorem ipsum dolor sit amet consectetur. Senectus tellus eget nunc posuere quis at vitae consequat.',
-  },
-  {
-    name: 'John Doe',
-    image: '/images/hero.png',
-    text: 'Lorem ipsum dolor sit amet consectetur. Senectus tellus eget nunc posuere quis at vitae consequat.',
-  },
-  {
-    name: 'John Do',
-    image: '/images/hero.png',
-    text: 'Lorem ipsum dolor sit amet consectetur. Senectus tellus eget nunc posuere quis at vitae consequat.',
-  },
-  {
-    name: 'John D',
-    image: '/images/hero.png',
-    text: 'Lorem ipsum dolor sit amet consectetur. Senectus tellus eget nunc posuere quis at vitae consequat.',
-  },
-  {
-    name: 'anjay',
-    image: '/images/hero.png',
-    text: 'Lorem ipsum dolor sit amet consectetur. Senectus tellus eget nunc posuere quis at vitae consequat.',
-  },
-];
+import { useState, useEffect } from 'react';
 
 export default function Testimoni() {
-  const [startIndex, setStartIndex] = useState(0);
-
-  const handlePrev = () => {
-    setStartIndex((prevIndex) =>
-      prevIndex === 0 ? testimonials.length - 3 : prevIndex - 1
-    );
-  };
-
-  const handleNext = () => {
-    setStartIndex((prevIndex) =>
-      prevIndex + 3 >= testimonials.length ? 0 : prevIndex + 1
-    );
-  };
+   const [testimoni, setTestimoni] = useState([]);
+    const [currentIndex, setCurrentIndex] = useState(0);
+  
+    useEffect(() => {
+      const fetchTestimoni = async () => {
+        try {
+          const res = await fetch("/api/testimoni");
+          const data = await res.json();
+          setTestimoni(data); // Set data fasilitas dari API
+        } catch (error) {
+          console.error("Error fetching testimoni data:", error);
+        }
+      };
+  
+      fetchTestimoni();
+    }, []);
+  
+    const handlePrev = () => {
+      setCurrentIndex((prev) => (prev === 0 ? testimoni.length - 3 : prev - 1));
+    };
+  
+    const handleNext = () => {
+      setCurrentIndex((prev) => (prev + 3 >= testimoni.length ? 0 : prev + 1));
+    };
+  
+    const visibleTestimoni = testimoni.slice(currentIndex, currentIndex + 3);
 
   return (
     <div className="bg-white pt-44 py-10 px-4 min-h-screen">
@@ -56,21 +41,21 @@ export default function Testimoni() {
           {'<'}
         </button>
         <div className="grid grid-cols-1 md:grid-cols-3 h-100 gap-4 flex-1 px-4">
-          {testimonials.slice(startIndex, startIndex + 3).map((t, i) => (
+          {visibleTestimoni.map((t, i) => (
             <div
               key={i}
               className="border rounded-xl p-12 shadow-sm flex flex-col justify-between pb-16"
             >
-              <p className="text-sm mb-6 font-bold">{t.text}</p>
+              <p className="text-sm mb-6 font-bold">{t.isi_pesan}</p>
               <div className="flex justify-center items-center gap-3 mt-4">
-                <Image
+                {/* <Image
                   src={t.image}
-                  alt={t.name}
+                  alt={t.nama}
                   width={50}
                   height={50}
                   className="rounded-full"
-                />
-                <span className="font-semibold text-gray-800">{t.name}</span>
+                /> */}
+                <span className="font-semibold text-gray-800">{t.nama}</span>
               </div>
             </div>
           ))}
