@@ -6,6 +6,7 @@ export const Navlink = [
       submenu: [
         { title: "Visi Misi", href: "/profil/VisiMisi" },
         { title: "Fasilitas", href: "/profil/fasilitas" },
+        { title: "Guru dan Staff", href: "/profil/GuruStaff" },
       ]
     },
     { title: "Program", href: "/program" },

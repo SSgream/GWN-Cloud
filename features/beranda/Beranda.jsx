@@ -15,7 +15,7 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="grid items-center grid-cols-1 p-10 md:grid-cols-2 md:p-20">
-        <div className="space-y-6 pl-30 pt-36">
+        <div className="space-y-6 pl-30 pt-65">
           <h1 className="text-3xl font-bold text-gray-900 md:text-5xl font-fredoka">
             Taman Kanak - Kanak <br /> Azizah 2
           </h1>
