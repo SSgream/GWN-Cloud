@@ -1,13 +1,13 @@
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
-import FasilitasPage from "@/features/profil/Fasilitas";
+import GuruStaffpage from "@/features/profil/GuruStaff";
 
 
 export default function PageGuruStaff() {
     return (
       <div>
         <Navbar />
-        <FasilitasPage />
+        <GuruStaffpage />
         <Footer />
       </div>
     );

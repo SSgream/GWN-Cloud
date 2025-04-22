@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from "next/image";
 
 export default function Kontak() {
   return (
@@ -7,7 +7,8 @@ export default function Kontak() {
       <div className="text-center mb-10">
         <h2 className="text-3xl font-bold mb-2">Kontak</h2>
         <p className="text-sm text-gray-700">
-          Jika Memiliki Pertanyaan dan Testimoni Bisa Langsung Isi Form Dibawah Ini
+          Jika Memiliki Pertanyaan dan Testimoni Bisa Langsung Isi Form Dibawah
+          Ini
         </p>
       </div>
 
@@ -59,15 +60,18 @@ export default function Kontak() {
 
       {/* Map + Info Sekolah */}
       <div className="flex justify-center mt-16">
-        <div className="w-full max-w-2xl rounded overflow-hidden shadow-md">
-          <Image
-            src="/map-preview.png" // Ubah ke gambar peta kamu
-            alt="Peta Lokasi TK Azizah 2"
-            width={800}
-            height={400}
-            className="rounded"
-          />
-        </div>
+      <div className="w-full aspect-video rounded-xl overflow-hidden shadow-lg mt-16">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!4v1745336816116!6m8!1m7!1sEB1BSrhpBj9DfI2xhTtbcw!2m2!1d-5.434271380496616!2d120.1921382510666!3f287.16800968573915!4f-3.9108326870948247!5f0.7820865974627469"
+    width="100%"
+    height="100%"
+    style={{ border: 0 }}
+    allowFullScreen=""
+    loading="lazy"
+    referrerPolicy="no-referrer-when-downgrade"
+  ></iframe>
+</div>
+
       </div>
     </div>
   );

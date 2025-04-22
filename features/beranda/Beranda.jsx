@@ -26,7 +26,7 @@ export default function Home() {
             Daftar
           </button>
         </div>
-        <div className="flex justify-center mt-10 pt-36 md:mt-0">
+        <div className="flex justify-center mt-10 pt-55 md:mt-0">
           <div className="relative w-64 h-64 md:w-80 md:h-80">
             <Image
               src="/images/logoo.png"
