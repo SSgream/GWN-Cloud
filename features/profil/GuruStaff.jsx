@@ -5,22 +5,22 @@ export default function GuruStaffpage() {
     {
       name: "Rahmi Annisa, S.Pd., Gr",
       role: "Kepala Sekolah",
-      image: "/images/rahmi.png",
+      image: "/images/guru2.png",
     },
     {
       name: "A. Jumriana, S.Pd",
       role: "Guru TK A",
-      image: "/images/jumriana.png",
+      image: "/images/guru3.png",
     },
     {
       name: "Ihwana, S.Pd.I",
       role: "Guru TK B",
-      image: "/images/ihwana.png",
+      image: "/images/guru2\.png",
     },
     {
       name: "Megawati, S.Pd.I",
       role: "Guru PAI",
-      image: "/images/megawati.png",
+      image: "/images/guru3.png",
     },
   ];
 
