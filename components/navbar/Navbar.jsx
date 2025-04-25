@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { Navlink } from './navlink';
-import { usePathname } from 'next/navigation';
+import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { Navlink } from "./navlink";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +22,7 @@ export default function Navbar() {
     <nav className="fixed top-0 z-50 w-full bg-gray-100 shadow-sm">
       {/* Banner atas */}
       <div className="py-3 text-sm text-center text-white custom-green-bg">
-        🔉 Pendaftaran dibuka 20–24 April 🔉
+      Buka Pendaftaran! Jangan Lewatkan Tanggal 20–24 April 📆
       </div>
 
       <div className="flex items-center justify-between max-w-screen-xl px-6 py-4 mx-auto bg-gray-100 md:px-12 lg:px-36">
@@ -37,8 +37,10 @@ export default function Navbar() {
             {Navlink.map((nav) => {
               const isHovered = hoveredLink === nav.href;
               const isCurrent = pathname === nav.href;
-              const showGreen = isCurrent && !hoveredLink;
-              
+              const isSubActive = nav.submenu?.some((sub) =>
+                pathname.startsWith(sub.href)
+              );
+              const showGreen = (isCurrent || isSubActive) && !hoveredLink;
 
               return (
                 <li
@@ -51,7 +53,7 @@ export default function Navbar() {
                     <>
                       <button
                         className={`transition-colors duration-200 ${
-                          showGreen || isHovered ? 'text-green-500' : ''
+                          showGreen || isHovered ? "text-green-500" : ""
                         }`}
                         onClick={() => toggleDropdown(nav.title)}
                       >
@@ -65,8 +67,8 @@ export default function Navbar() {
                                 href={sub.href}
                                 className={`flex items-center justify-between px-4 py-2 transition-colors duration-200 hover:bg-green-50 hover:text-green-500 ${
                                   isActive(sub.href) && !hoveredLink
-                                    ? 'text-green-500'
-                                    : ''
+                                    ? "text-green-500"
+                                    : ""
                                 }`}
                               >
                                 {sub.title}
@@ -81,7 +83,7 @@ export default function Navbar() {
                     <Link
                       href={nav.href}
                       className={`transition-colors duration-200 ${
-                        showGreen || isHovered ? 'text-green-500' : ''
+                        showGreen || isHovered ? "text-green-500" : ""
                       }`}
                     >
                       {nav.title}
@@ -105,7 +107,7 @@ export default function Navbar() {
         {/* Toggle Mobile */}
         <div className="md:hidden">
           <button className="text-2xl" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? '✖' : '☰'}
+            {isOpen ? "✖" : "☰"}
           </button>
         </div>
       </div>

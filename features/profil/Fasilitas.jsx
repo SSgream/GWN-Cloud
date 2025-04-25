@@ -1,25 +1,28 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 
 export default function FasilitasPage() {
-  const [fasilitas, setFasilitas] = useState([]);
+  const fasilitas = [
+    {
+      ruangan: "Kantor",
+      deskripsi: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      image_url: "/images/Kantor.png",
+    },
+    {
+      ruangan: "Kelas A",
+      deskripsi: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      image_url: "/images/Kelas_A.png",
+    },
+    {
+      ruangan: "Kelas B",
+      deskripsi: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      image_url: "/images/Kelas_B.png",
+    },
+  ];
+
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    const fetchFasilitas = async () => {
-      try {
-        const res = await fetch("/api/fasilitas");
-        const data = await res.json();
-        setFasilitas(data); // Set data fasilitas dari API
-      } catch (error) {
-        console.error("Error fetching fasilitas data:", error);
-      }
-    };
-
-    fetchFasilitas();
-  }, []);
 
   const handlePrev = () => {
     setCurrentIndex((prev) => (prev === 0 ? fasilitas.length - 3 : prev - 1));
@@ -78,7 +81,7 @@ export default function FasilitasPage() {
 
                 <div className="px-4 text-center">
                   <div className="font-bold text-lg">
-                    3 <span className="block text-base">days</span>
+                    6 <span className="block text-base">days</span>
                   </div>
                   <div className="text-xs mt-1">weekly</div>
                 </div>
