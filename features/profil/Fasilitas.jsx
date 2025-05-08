@@ -42,7 +42,7 @@ export default function FasilitasPage() {
       <div className="flex justify-center items-center relative">
         <button
           onClick={handlePrev}
-          className="absolute left-0 bg-green-100 hover:bg-green-200 p-2 rounded-full text-2xl"
+          className="absolute -left-12 md:-left-16 bg-green-100 hover:bg-green-200 p-2 rounded-full text-2xl z-10"
         >
           ❮
         </button>
@@ -101,7 +101,7 @@ export default function FasilitasPage() {
 
         <button
           onClick={handleNext}
-          className="absolute right-0 bg-green-100 hover:bg-green-200 p-2 rounded-full text-2xl"
+          className="absolute -right-12 md:-right-16 bg-green-100 hover:bg-green-200 p-2 rounded-full text-2xl z-10"
         >
           ❯
         </button>

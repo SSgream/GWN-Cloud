@@ -1,46 +1,58 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
+import { useState, useRef } from "react";
+import { Upload, Plus, X } from "lucide-react";
 
 export default function Pendaftaran() {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [files, setFiles] = useState([]);
+  const inputRef = useRef(null);
+
+  const handleChange = (e) => {
+    const newFiles = Array.from(e.target.files).map((file) => ({
+      file,
+      url: URL.createObjectURL(file),
+      name: file.name,
+      type: file.type,
+    }));
+    setFiles((prev) => [...prev, ...newFiles]);
+  };
+
+  const removeFile = (index) => {
+    setFiles((prev) => prev.filter((_, i) => i !== index));
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-
-    const formData = new FormData(e.target)
-    const data = Object.fromEntries(formData.entries())
-
+    e.preventDefault();
+    setLoading(true);
+  
+    const formData = new FormData(e.target);
+  
+    // Tambahkan file-file ke FormData
+    files.forEach((item, index) => {
+      formData.append("berkas", item.file); // key-nya sama semua: 'berkas'
+    });
+  
     try {
-      const res = await fetch('/api/pendaftaran', {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: { 'Content-Type': 'application/json' },
-      })
-
-      let result
-      try {
-        result = await res.json()
-      } catch (jsonErr) {
-        const text = await res.text()
-        console.error('Respon bukan JSON:', text)
-        alert('Kesalahan server: response bukan JSON')
-        return
-      }
-
+      const res = await fetch("/api/pendaftaran", {
+        method: "POST",
+        body: formData, // tidak perlu JSON.stringify
+      });
+  
+      const result = await res.json();
       if (res.ok) {
-        alert('Pendaftaran berhasil!')
+        alert("Pendaftaran berhasil!");
       } else {
-        alert('Gagal: ' + result.error)
+        alert("Gagal: " + result.error);
       }
     } catch (err) {
-      console.error('Network error:', err)
-      alert('Terjadi kesalahan saat mengirim data')
+      console.error("Network error:", err);
+      alert("Terjadi kesalahan saat mengirim data");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
+  
 
   return (
     <div className="bg-white min-h-screen pt-48 py-12 px-6 md:px-20">
@@ -49,24 +61,133 @@ export default function Pendaftaran() {
       </h1>
 
       <form className="space-y-12" onSubmit={handleSubmit}>
-        {/* DATA SISWA */}
         <section>
           <h2 className="text-2xl font-semibold mb-4">Data Siswa</h2>
-          <div className="grid md:grid-cols-2 gap-4 ">
-            {[
-              'Nama Lengkap', 'Nama Panggilan', 'Tempat Lahir', 'Tanggal Lahir',
-              'Jenis Kelamin', 'Anak ke-', 'Jumlah Saudara', 'Agama',
-              'Status dalam keluarga', 'Kewarganegaraan'
-            ].map((label, idx) => (
-              <div className="pt-4 flex flex-col" key={idx}>
-                <label className="text-sm font-medium mb-1">{label}</label>
-                <input
-                  className="input"
-                  name={label.toLowerCase().replace(/ /g, '_').replace('-', '')}
-                  required
-                />
+          <div className="grid md:grid-cols-2 gap-4">
+            {/* Nama Lengkap */}
+            <div className="flex flex-col">
+              <label className="text-sm font-medium mb-1">Nama Lengkap</label>
+              <input
+                className="bg-gray-100 p-2 rounded"
+                name="nama_lengkap"
+                required
+              />
+            </div>
+
+            {/* Nama Panggilan */}
+            <div className="flex flex-col">
+              <label className="text-sm font-medium mb-1">Nama Panggilan</label>
+              <input
+                className="bg-gray-100 p-2 rounded"
+                name="nama_panggilan"
+                required
+              />
+            </div>
+
+            {/* Tempat Lahir */}
+            <div className="flex flex-col">
+              <label className="text-sm font-medium mb-1">Tempat Lahir</label>
+              <input
+                className="bg-gray-100 p-2 rounded"
+                name="tempat_lahir"
+                required
+              />
+            </div>
+
+            {/* Tanggal Lahir */}
+            <div className="flex flex-col">
+              <label className="text-sm font-medium mb-1">Tanggal Lahir</label>
+              <input
+                type="date"
+                className="bg-gray-100 p-2 rounded"
+                name="tanggal_lahir"
+                required
+              />
+            </div>
+
+            {/* Jenis Kelamin, Anak Ke, dan Jumlah Saudara */}
+            <div className="flex flex-col">
+              <div className="flex gap-16">
+                {/* Jenis Kelamin */}
+                <div className="flex flex-col">
+                  <span className="text-sm font-medium mb-1">
+                    Jenis Kelamin
+                  </span>
+                  <div className="flex gap-4">
+                    <label className="flex items-center gap-1">
+                      <input
+                        type="radio"
+                        name="jenis_kelamin"
+                        value="Laki-Laki"
+                        className="accent-blue-600"
+                      />
+                      Laki - Laki
+                    </label>
+                    <label className="flex items-center gap-1">
+                      <input
+                        type="radio"
+                        name="jenis_kelamin"
+                        value="Perempuan"
+                        className="accent-pink-500"
+                      />
+                      Perempuan
+                    </label>
+                  </div>
+                </div>
+
+                {/* Anak Ke */}
+                <div className="flex flex-col">
+                  <label className="text-sm font-medium mb-1">Anak Ke-</label>
+                  <input
+                    type="number"
+                    name="anak_ke"
+                    placeholder="Anak ke-"
+                    className="bg-gray-100 p-2 rounded w-32"
+                  />
+                </div>
+
+                {/* Jumlah Saudara */}
+                <div className="flex flex-col">
+                  <label className="text-sm font-medium mb-1">
+                    Jumlah Saudara
+                  </label>
+                  <input
+                    type="number"
+                    name="jumlah_saudara"
+                    placeholder="Jumlah saudara"
+                    className="bg-gray-100 p-2 rounded w-40"
+                  />
+                </div>
               </div>
-            ))}
+            </div>
+
+            {/* Agama */}
+            <div className="flex flex-col">
+              <label className="text-sm font-medium mb-1">Agama</label>
+              <input className="bg-gray-100 p-2 rounded" name="agama" />
+            </div>
+
+            {/* Status dalam keluarga */}
+            <div className="flex flex-col">
+              <label className="text-sm font-medium mb-1">
+                Status dalam keluarga
+              </label>
+              <input
+                className="bg-gray-100 p-2 rounded"
+                name="status_dalam_keluarga"
+              />
+            </div>
+
+            {/* Kewarganegaraan */}
+            <div className="flex flex-col">
+              <label className="text-sm font-medium mb-1">
+                Kewarganegaraan
+              </label>
+              <input
+                className="bg-gray-100 p-2 rounded"
+                name="kewarganegaraan"
+              />
+            </div>
           </div>
         </section>
 
@@ -75,14 +196,21 @@ export default function Pendaftaran() {
           <h2 className="text-2xl font-semibold mb-4">Data Ayah</h2>
           <div className="grid md:grid-cols-2 gap-4">
             {[
-              'Nama', 'Status Ayah', 'Tempat Lahir', 'Tanggal Lahir', 'Pekerjaan',
-              'Agama', 'Pendidikan', 'Kewarganegaraan'
+              "Nama",
+              "Status Ayah",
+              "Tempat Lahir",
+              "Tanggal Lahir",
+              "Pekerjaan",
+              "Agama",
+              "Pendidikan",
+              "Kewarganegaraan",
             ].map((label, idx) => (
-              <div className="pt-4 flex flex-col" key={idx}>
+              <div className="flex flex-col" key={idx}>
                 <label className="text-sm font-medium mb-1">{label}</label>
                 <input
-                  className="input"
-                  name={`ayah_${label.toLowerCase().replace(/ /g, '_')}`}
+                  type={label.includes("Tanggal") ? "date" : "text"}
+                  className="bg-gray-100 p-2 rounded"
+                  name={`ayah_${label.toLowerCase().replace(/ /g, "_")}`}
                   required
                 />
               </div>
@@ -91,23 +219,101 @@ export default function Pendaftaran() {
         </section>
 
         {/* DATA IBU */}
-        <section>
+        <section className="mt-8">
           <h2 className="text-2xl font-semibold mb-4">Data Ibu</h2>
           <div className="grid md:grid-cols-2 gap-4">
             {[
-              'Nama', 'Status Ibu', 'Tempat Lahir', 'Tanggal Lahir', 'Pekerjaan',
-              'Agama', 'Pendidikan', 'Kewarganegaraan'
+              "Nama",
+              "Status Ibu",
+              "Tempat Lahir",
+              "Tanggal Lahir",
+              "Pekerjaan",
+              "Agama",
+              "Pendidikan",
+              "Kewarganegaraan",
             ].map((label, idx) => (
-              <div className="pt-4 flex flex-col" key={idx}>
+              <div className="flex flex-col" key={idx}>
                 <label className="text-sm font-medium mb-1">{label}</label>
                 <input
-                  className="input"
-                  name={`ibu_${label.toLowerCase().replace(/ /g, '_')}`}
+                  type={label.includes("Tanggal") ? "date" : "text"}
+                  className="bg-gray-100 p-2 rounded"
+                  name={`ibu_${label.toLowerCase().replace(/ /g, "_")}`}
                   required
                 />
               </div>
             ))}
           </div>
+        </section>
+
+        {/* Tambah Berkas Tambahan */}
+        <section className="mt-8">
+          <div className=" mb-4">
+            <h2 className="text-2xl font-semibold text-gray-800">
+              Berkas Pendaftaran
+            </h2>
+            <p className="text-sm text-gray-500 mt-1">
+              Kartu Keluarga, Akta Kelahiran, Foto ukuran 3 x 4, Buku KIA
+              (Kesehatan Ibu dan Anak)
+            </p>
+          </div>
+
+          <div className="flex items-center justify-center min-h-[200px]">
+    <div className="w-full max-w-sm border border-dashed rounded-md p-4 min-h-[160px] flex items-center justify-center">
+      {files.length === 0 ? (
+        <button
+          onClick={() => inputRef.current.click()}
+          className="flex flex-col items-center text-gray-500 hover:text-blue-500"
+        >
+          <Upload className="w-6 h-6 mb-1" />
+          <span>Unggah berkas</span>
+        </button>
+      ) : (
+        <div className="w-full space-y-2">
+          {files.map((file, i) => (
+            <div
+              key={i}
+              className="flex items-center justify-between bg-gray-50 px-2 py-1 rounded"
+            >
+              <div className="flex items-center gap-2">
+                {file.type.startsWith("image/") ? (
+                  <img
+                    src={file.url}
+                    alt="preview"
+                    className="w-6 h-6 object-cover rounded"
+                  />
+                ) : (
+                  <span className="text-gray-500">📎</span>
+                )}
+                <span className="text-sm truncate max-w-[140px]">
+                  {file.name}
+                </span>
+              </div>
+              <button
+                onClick={() => removeFile(i)}
+                className="text-red-500 hover:text-red-700"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          ))}
+          <button
+            onClick={() => inputRef.current.click()}
+            className="flex items-center gap-1 text-blue-600 text-sm hover:underline"
+          >
+            <Plus className="w-4 h-4" />
+            Tambah berkas
+          </button>
+        </div>
+      )}
+      <input
+        type="file"
+        multiple
+        ref={inputRef}
+        className="hidden"
+        onChange={handleChange}
+      />
+    </div>
+  </div>
         </section>
 
         {/* SUBMIT */}
@@ -117,7 +323,7 @@ export default function Pendaftaran() {
             className="bg-green-700 hover:bg-green-800 text-white py-3 px-8 rounded"
             disabled={loading}
           >
-            {loading ? 'Mengirim...' : 'SUBMIT'}
+            {loading ? "Mengirim..." : "SUBMIT"}
           </button>
         </div>
       </form>
@@ -133,5 +339,5 @@ export default function Pendaftaran() {
         }
       `}</style>
     </div>
-  )
+  );
 }

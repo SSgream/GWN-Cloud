@@ -9,7 +9,7 @@ export async function GET() {
   });
 
   try {
-    const [rows] = await connection.query('SELECT * FROM testimoni');
+    const [rows] = await connection.query('SELECT * FROM testimoni WHERE tampilkan = 1 ORDER BY created_at DESC');
     return new Response(JSON.stringify(rows), {
       status: 200,
       headers: {
