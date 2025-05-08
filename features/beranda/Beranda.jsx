@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -22,9 +23,11 @@ export default function Home() {
           <p className="pt-10 font-medium text-black underline text-md">
             Pendaftaran dibuka 20–24 April
           </p>
-          <button className="py-4 text-white bg-orange-400 rounded-full hover:bg-orange-600 px-14">
-            Daftar
-          </button>
+          <Link href="/pendaftaran">
+            <button className="py-4 text-white bg-orange-400 rounded-full hover:bg-orange-600 px-14">
+              Daftar
+            </button>
+          </Link>
         </div>
         <div className="flex justify-center mt-10 pt-55 md:mt-0">
           <div className="relative w-64 h-64 md:w-80 md:h-80">
