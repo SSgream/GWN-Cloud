@@ -28,7 +28,7 @@ export default function Navbar() {
       <div className="flex items-center justify-between max-w-screen-xl px-6 py-4 mx-auto bg-gray-100 md:px-12 lg:px-36">
         {/* Logo */}
         <Link href="/" className="flex-shrink-0">
-          <Image src="/images/logoo.png" alt="Logo" width={50} height={50} />
+          <Image src="https://gwn-bucket.s3.us-east-1.amazonaws.com/images/logoo.png" alt="Logo" width={50} height={50} />
         </Link>
 
         {/* Menu Desktop */}

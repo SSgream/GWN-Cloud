@@ -8,17 +8,17 @@ export default function FasilitasPage() {
     {
       ruangan: "Kantor",
       deskripsi: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      image_url: "/images/Kantor.png",
+      image_url: "https://gwn-bucket.s3.us-east-1.amazonaws.com/images/Kantor.png",
     },
     {
       ruangan: "Kelas A",
       deskripsi: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      image_url: "/images/Kelas_A.png",
+      image_url: "https://gwn-bucket.s3.us-east-1.amazonaws.com/images/Kelas_A.png",
     },
     {
       ruangan: "Kelas B",
       deskripsi: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      image_url: "/images/Kelas_B.png",
+      image_url: "https://gwn-bucket.s3.us-east-1.amazonaws.com/images/Kelas_B.png",
     },
   ];
 

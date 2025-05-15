@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="grid grid-cols-1 gap-10 mx-auto text-sm text-black max-w-7xl md:grid-cols-3">
         {/* Logo + Deskripsi */}
         <div className="flex flex-col items-start">
-          <Image src="/images/logo_rpl.png" alt="Logo" width={80} height={80} className="mb-4" />
+          <Image src="https://gwn-bucket.s3.us-east-1.amazonaws.com/images/logoo.png" alt="Logo" width={80} height={80} className="mb-4" unoptimized />
           <p className="max-w-sm mt-2 leading-relaxed">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
