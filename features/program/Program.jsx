@@ -10,7 +10,7 @@ const programData = [
     subpoints: [
       "Muatan Lokal: Pembelajaran berbasis budaya lokal untuk menjaga identitas sejak dini, seperti kunjungan studi ke pembuatan perahu Phinisi dan Pesanggrahan Tanete.",
     ],
-    image: "/images/intrakulikuler.jpg",
+    image: "https://gwn-bucket.s3.us-east-1.amazonaws.com/images/intrakulikuler.jpg",
   },
   {
     title: "Ekstrakurikuler",
@@ -19,7 +19,7 @@ const programData = [
       "Menari Membekali peserta didik untuk memiliki kreatifitas,mengolah rasa dalam sebuah gerakan yang indah, menjaga Warisan leluhur,bergotong royong  menghasilkan Gerakan yang seirama",
       "Bahasa Inggris Membekali peserta didik agar bisa berbahasa inggris tingkat dasar (kata benda,angka,dan anggota badan)",
     ],
-    image: "/images/intrakulikuler.jpg",
+    image: "https://gwn-bucket.s3.us-east-1.amazonaws.com/images/intrakulikuler.jpg",
   },
   {
     title: "Proyek Penguatan Profil Pelajar Pancasila",
@@ -28,7 +28,7 @@ const programData = [
       "Semester 1 “Aku Cinta Indonesia” dan “Imajinasiku”",
       "Semester 2 “Aku Sayang Bumi” dan “Kita Semua Bersaudara”",
     ],
-    image: "/images/intrakulikuler.jpg",
+    image: "https://gwn-bucket.s3.us-east-1.amazonaws.com/images/intrakulikuler.jpg",
   },
 ];
 

@@ -7,10 +7,11 @@ export default function Home() {
       {/* Background Image */}
       <div className="absolute inset-0 -z-10">
         <Image
-          src="/images/ayy.jpg" // ganti path sesuai lokasi gambar kamu
+          src="https://gwn-bucket.s3.us-east-1.amazonaws.com/images/backgorund.png" // ganti path sesuai lokasi gambar kamu
           alt="Background"
           fill
-          className="object-cover opacity-30" // atur opacity agar konten tetap terbaca
+          className="object-cover opacity-30"
+          unoptimized
         />
       </div>
 
@@ -32,7 +33,7 @@ export default function Home() {
         <div className="flex justify-center mt-10 pt-55 md:mt-0">
           <div className="relative w-64 h-64 md:w-80 md:h-80">
             <Image
-              src="/images/logoo.png"
+              src="https://gwn-bucket.s3.us-east-1.amazonaws.com/images/logoo.png"
               alt="Child"
               fill
               className="rounded-[30%] object-cover"
