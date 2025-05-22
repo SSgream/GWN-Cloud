@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 
 export default function FasilitasPage() {
@@ -9,102 +8,48 @@ export default function FasilitasPage() {
       ruangan: "Kantor",
       deskripsi: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       image_url: "https://gwn-bucket.s3.us-east-1.amazonaws.com/images/Kantor.png",
+      bgColor: "bg-gradient-to-tr from-teal-100 to-teal-300",
     },
     {
       ruangan: "Kelas A",
       deskripsi: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       image_url: "https://gwn-bucket.s3.us-east-1.amazonaws.com/images/Kelas_A.png",
+      bgColor: "bg-gradient-to-tr from-orange-100 to-orange-300",
     },
     {
       ruangan: "Kelas B",
       deskripsi: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       image_url: "https://gwn-bucket.s3.us-east-1.amazonaws.com/images/Kelas_B.png",
+      bgColor: "bg-gradient-to-tr from-pink-100 to-pink-300",
     },
   ];
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const handlePrev = () => {
-    setCurrentIndex((prev) => (prev === 0 ? fasilitas.length - 3 : prev - 1));
-  };
-
-  const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 3 >= fasilitas.length ? 0 : prev + 1));
-  };
-
-  const visibleFasilitas = fasilitas.slice(currentIndex, currentIndex + 3);
-  const bgColors = ["bg-teal-400", "bg-orange-400", "bg-rose-400"];
-
   return (
-    <div className="pt-44 py-12 px-4 md:px-16 lg:px-24 relative bg-white min-h-screen">
-      <h2 className="text-3xl font-bold text-center mb-12">Fasilitas</h2>
+    <div className="pt-44 pb-16 px-6 md:px-20 lg:px-28 bg-white min-h-screen">
+      <h2 className="text-4xl font-bold text-center mb-6 tracking-wide">
+        Fasilitas
+      </h2>
+      <div className="h-1 w-24 mx-auto bg-orange-400 rounded mb-12"></div>
 
-      <div className="flex justify-center items-center relative">
-        <button
-          onClick={handlePrev}
-          className="absolute -left-12 md:-left-16 bg-green-100 hover:bg-green-200 p-2 rounded-full text-2xl z-10"
-        >
-          ❮
-        </button>
-
-        <div className="flex flex-col md:flex-row gap-6 items-center justify-center w-full">
-          {visibleFasilitas.map((item, index) => (
-            <div
-              key={index}
-              className="w-full md:w-1/3 flex flex-col items-center text-center"
-            >
-              <div className="rounded-xl overflow-hidden mb-4">
-                <Image
-                  src={item.image_url}
-                  alt={item.ruangan}
-                  width={500}
-                  height={300}
-                  className="object-cover w-full h-64"
-                  unoptimized
-                />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">{item.ruangan}</h3>
-              <p className="text-sm text-gray-600 mb-4">{item.deskripsi}</p>
-              <div
-                className={`w-fit rounded-2xl text-white p-4 flex text-sm shadow-md ${
-                  bgColors[index % bgColors.length]
-                }`}
-              >
-                <div className="px-4 text-center">
-                  <div className="font-bold text-lg">
-                    4–5 <span className="block text-base">yrs</span>
-                  </div>
-                  <div className="text-xs mt-1">age</div>
-                </div>
-
-                <div className="border-l border-white/60 mx-4"></div>
-
-                <div className="px-4 text-center">
-                  <div className="font-bold text-lg">
-                    6 <span className="block text-base">days</span>
-                  </div>
-                  <div className="text-xs mt-1">weekly</div>
-                </div>
-
-                <div className="border-l border-white/60 mx-4"></div>
-
-                <div className="px-4 text-center">
-                  <div className="font-bold text-lg">
-                    3.30 <span className="block text-base">hrs</span>
-                  </div>
-                  <div className="text-xs mt-1">period</div>
-                </div>
-              </div>
+      <div className="grid gap-12 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        {fasilitas.map((item, index) => (
+          <div
+            key={index}
+            className={`${item.bgColor} shadow-lg rounded-xl overflow-hidden flex flex-col items-center text-center p-6 transition-transform duration-300 hover:scale-[1.05] hover:shadow-2xl`}
+          >
+            <div className="w-full h-64 relative mb-5 rounded-lg overflow-hidden shadow-md">
+              <Image
+                src={item.image_url}
+                alt={item.ruangan}
+                fill
+                className="object-cover"
+                unoptimized
+              />
             </div>
-          ))}
-        </div>
-
-        <button
-          onClick={handleNext}
-          className="absolute -right-12 md:-right-16 bg-green-100 hover:bg-green-200 p-2 rounded-full text-2xl z-10"
-        >
-          ❯
-        </button>
+            <h3 className="text-xl font-semibold mb-3 text-gray-900">{item.ruangan}</h3>
+            <p className="text-md text-gray-700 max-w-xs">{item.deskripsi}</p>
+          </div>
+        ))}
       </div>
     </div>
   );

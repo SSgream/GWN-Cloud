@@ -7,7 +7,7 @@ export default function Home() {
       {/* Background Image */}
       <div className="absolute inset-0 -z-10">
         <Image
-          src="https://gwn-bucket.s3.us-east-1.amazonaws.com/images/backgorund.png" // ganti path sesuai lokasi gambar kamu
+          src="https://gwn-bucket.s3.us-east-1.amazonaws.com/images/backgorund.png"
           alt="Background"
           fill
           className="object-cover opacity-30"
@@ -16,39 +16,62 @@ export default function Home() {
       </div>
 
       {/* Hero Section */}
-      <section className="flex flex-col md:grid md:grid-cols-2 px-4 py-8 md:p-20">
-        {/* Judul TK */}
-        <div className="order-1 pt-[10rem] md:order-none text-center md:text-left md:pl-[8rem] md:pt-[15rem]">
-          <h1 className="text-xl font-bold text-gray-900 md:text-5xl font-fredoka">
-            Taman Kanak - Kanak <br /> Azizah 2
-          </h1>
-        </div>
-
-        {/* Logo */}
-        <div className="order-2 md:order-none flex justify-center pt-10 md:pt-0">
-          <div className="relative w-36 h-36 md:w-80 md:h-80">
+      <section className="p-10 md:p-20 pt-55">
+        {/* Mobile Layout - Vertikal */}
+        <div className="flex flex-col items-center space-y-6 md:hidden">
+          {/* Logo di mobile */}
+          <div className="relative w-64 h-64">
             <Image
               src="https://gwn-bucket.s3.us-east-1.amazonaws.com/images/logoo.png"
-              alt="Child"
+              alt="Logo TK Azizah 2"
               fill
               className="rounded-[30%] object-cover"
             />
           </div>
+          
+          {/* Text Content di mobile */}
+          <div className="text-center space-y-6">
+            <h1 className="text-3xl font-bold text-gray-900 font-fredoka">
+              Taman Kanak - Kanak <br /> Azizah 2
+            </h1>
+            <p className="font-medium text-black underline text-md">
+              Pendaftaran dibuka 20–24 April
+            </p>
+            <Link href="/pendaftaran">
+              <button className="py-4 text-white bg-orange-400 rounded-full hover:bg-orange-600 px-14">
+                Daftar
+              </button>
+            </Link>
+          </div>
         </div>
 
-        {/* Paragraf + Tombol */}
-        <div className="order-3 md:order-none text-center md:text-left md:pl-[8rem] md:pt-3 space-y-6">
-          <p className="pt-5 md:pt-10 font-medium text-black underline text-sm md:text-md">
-            Pendaftaran dibuka 20–24 April
-          </p>
-          <Link href="/pendaftaran">
-            <button className="py-4 text-sm md:text-lg text-white bg-orange-400 rounded-full hover:bg-orange-600 px-14">
-              Daftar
-            </button>
-          </Link>
+        {/* Desktop Layout - Side by side */}
+        <div className="hidden md:grid md:grid-cols-2 md:items-center">
+          <div className="space-y-6 pl-30 pt-65">
+            <h1 className="text-3xl font-bold text-gray-900 md:text-5xl font-fredoka">
+              Taman Kanak - Kanak <br /> Azizah 2
+            </h1>
+            <p className="pt-10 font-medium text-black underline text-md">
+              Pendaftaran dibuka 20–24 April
+            </p>
+            <Link href="/pendaftaran">
+              <button className="py-4 text-white bg-orange-400 rounded-full hover:bg-orange-600 px-14">
+                Daftar
+              </button>
+            </Link>
+          </div>
+          <div className="flex justify-center pt-55">
+            <div className="relative w-80 h-80">
+              <Image
+                src="https://gwn-bucket.s3.us-east-1.amazonaws.com/images/logoo.png"
+                alt="Logo TK Azizah 2"
+                fill
+                className="rounded-[30%] object-cover"
+              />
+            </div>
+          </div>
         </div>
       </section>
-
     </main>
   );
 }

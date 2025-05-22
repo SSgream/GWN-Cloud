@@ -1,70 +1,82 @@
-'use client';
+"use client";
 
 import { useState, useEffect } from "react";
-import Image from 'next/image';
+import Image from "next/image";
 
 export default function KegiatanPage() {
-   const [kegiatan, setKegiatan] = useState([]);
-    const [currentIndex, setCurrentIndex] = useState(0);
-  
-    useEffect(() => {
-      const fetchKegiatan = async () => {
-        try {
-          const res = await fetch("/api/kegiatan");
-          const data = await res.json();
-          setKegiatan(data); // Set data fasilitas dari API
-        } catch (error) {
-          console.error("Error fetching kegiatan data:", error);
-        }
-      };
-  
-      fetchKegiatan();
-    }, []);
-  
-    const handlePrev = () => {
-      setCurrentIndex((prev) => (prev === 0 ? kegiatan.length - 3 : prev - 1));
+  const [kegiatan, setKegiatan] = useState([]);
+  const [visibleCount, setVisibleCount] = useState(3); // mulai dari 3 kegiatan
+
+  useEffect(() => {
+    const fetchKegiatan = async () => {
+      try {
+        const res = await fetch("/api/kegiatan");
+        const data = await res.json();
+        setKegiatan(data);
+      } catch (error) {
+        console.error("Error fetching kegiatan data:", error);
+      }
     };
-  
-    const handleNext = () => {
-      setCurrentIndex((prev) => (prev + 3 >= kegiatan.length ? 0 : prev + 1));
-    };
-  
-    const visibleKegiatan = kegiatan.slice(currentIndex, currentIndex + 3);
+
+    fetchKegiatan();
+  }, []);
+
+  // Data kegiatan yang tampil, sesuai visibleCount
+  const visibleKegiatan = kegiatan.slice(0, visibleCount);
+
+  const handleLoadMore = () => {
+    setVisibleCount(kegiatan.length); // langsung tampilkan semua kegiatan
+  };
+
   return (
     <main className="min-h-screen bg-gray-50 pt-44 pb-16 px-6 md:px-16">
-      <h1 className="text-center text-2xl md:text-3xl font-bold">Kegiatan TK Azizah 2</h1>
+      <h1 className="text-center text-3xl font-bold mb-8">Kegiatan TK Azizah 2</h1>
 
-      <div className="flex justify-center mt-4 md:mt-0 md:justify-end mb-6">
-        <button className="bg-gray-300 text-white px-4 py-2 rounded-lg text-sm">Filter By</button>
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {visibleKegiatan.map((item) => (
-          <div key={item.deskripsi} className="bg-white rounded-xl shadow-sm border overflow-hidden">
-            <div className="relative w-full h-27 md:w-full md:h-75">
-              <Image
-                src={item.image_url}
-                alt={item.deskripsi}
-                layout="fill"
-                objectFit="cover"
-                className="rounded-t-xl"
-              />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-20">
+        {visibleKegiatan.map((item, idx) => (
+          <div
+            key={idx}
+            className="bg-white rounded-xl shadow-md border overflow-hidden"
+          >
+            <div className="relative w-full h-48 md:h-52">
+              {item.foto ? (
+                <Image
+                  src={item.foto}
+                  alt={item.judul || "Foto kegiatan"}
+                  fill
+                  objectFit="cover"
+                  className="rounded-t-xl"
+                  unoptimized
+                />
+              ) : (
+                <div className="bg-gray-200 rounded-t-xl w-full h-full flex items-center justify-center text-gray-500">
+                  No Image
+                </div>
+              )}
             </div>
-            <div className="p-4 pb-18 space-y-2">
-              <p className="text-md text-gray-500 flex items-center">
-                <span className="mr-2">👤</span>by {item.username}
+            <div className="p-4 space-y-1">
+              <h2 className="text-lg font-semibold text-gray-800 truncate">
+                {item.judul || "-"}
+              </h2>
+              <p className="text-sm text-gray-500">{item.tanggal || "-"}</p>
+              <p className="text-sm text-gray-600 line-clamp-3">
+                {item.deskripsi || "-"}
               </p>
-              <h2 className="text-sm md:text-lg font-bold text-gray-800">{item.deskripsi}</h2>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="mt-10 text-center">
-        <button className="text-sm md:text-md bg-orange-300 hover:bg-orange-400 text-white font-bold py-3 px-6 rounded-full transition duration-300">
-          View more
-        </button>
-      </div>
+      {visibleCount < kegiatan.length && (
+        <div className="mt-8 text-center">
+          <button
+            onClick={handleLoadMore}
+            className="text-orange-500 font-semibold hover:underline"
+          >
+            Selengkapnya...
+          </button>
+        </div>
+      )}
     </main>
   );
 }

@@ -1,9 +1,28 @@
 import mysql from 'mysql2/promise';
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { v4 as uuidv4 } from 'uuid';
 
+const s3 = new S3Client({
+  region: process.env.AWS_REGION,
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  },
+});
+
+const bucketName = process.env.AWS_BUCKET_NAME;
 
 export async function POST(req) {
   try {
-    const body = await req.json();
+    const form = await req.formData();
+
+    // Ambil field non-file dari formData
+    const body = {};
+    for (const [key, value] of form.entries()) {
+      if (typeof value === 'string') {
+        body[key] = value;
+      }
+    }
 
     const connection = await mysql.createConnection({
       host: process.env.DB_HOST,
@@ -12,9 +31,9 @@ export async function POST(req) {
       database: process.env.DB_NAME,
     });
 
-    // 1. Insert ke tabel ayah
+    // Insert data ayah
     const [ayahResult] = await connection.execute(
-      `INSERT INTO ayah (nama,  tempat_lahir, tanggal_lahir, agama, kewarganegaraan, pekerjaan, pendidikan, status_dalam_keluarga)
+      `INSERT INTO ayah (nama, tempat_lahir, tanggal_lahir, agama, kewarganegaraan, pekerjaan, pendidikan, status_dalam_keluarga)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         body.ayah_nama,
@@ -29,7 +48,7 @@ export async function POST(req) {
     );
     const ayahId = ayahResult.insertId;
 
-    // 2. Insert ke tabel ibu
+    // Insert data ibu
     const [ibuResult] = await connection.execute(
       `INSERT INTO ibu (nama, tempat_lahir, tanggal_lahir, agama, kewarganegaraan, pekerjaan, pendidikan, status_dalam_keluarga)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
@@ -46,8 +65,8 @@ export async function POST(req) {
     );
     const ibuId = ibuResult.insertId;
 
-    // 3. Insert ke tabel anak, sertakan ayah_id dan ibu_id
-    await connection.execute(
+    // Insert data pendaftar_siswa tanpa file_paths dulu
+    const [pendaftarResult] = await connection.execute(
       `INSERT INTO pendaftar_siswa
         (nama_lengkap, nama_panggilan, tempat_lahir, tanggal_lahir, jenis_kelamin, anak_ke, jumlah_saudara, agama, status_dalam_keluarga, kewarganegaraan, id_ayah, id_ibu)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
@@ -67,17 +86,61 @@ export async function POST(req) {
       ]
     );
 
+    const pendaftarId = pendaftarResult.insertId;
+
+    // Ambil semua file dengan key 'berkas' dari formData
+    const files = form.getAll('berkas');
+    const uploadedFilePaths = [];
+
+    for (const file of files) {
+      if (!(file instanceof File)) continue; // Pastikan ini file
+
+      const fileExtension = file.name.split('.').pop();
+      const uniqueFileName = `pendaftaran/${pendaftarId}/${uuidv4()}.${fileExtension}`;
+
+      const arrayBuffer = await file.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+
+      const uploadParams = {
+        Bucket: bucketName,
+        Key: uniqueFileName,
+        Body: buffer,
+        ContentType: file.type,
+      };
+
+      await s3.send(new PutObjectCommand(uploadParams));
+
+      uploadedFilePaths.push(uniqueFileName);
+    }
+
+    // Update file_paths di database (JSON array string)
+    if (uploadedFilePaths.length > 0) {
+      await connection.execute(
+        `UPDATE pendaftar_siswa SET file_path = ? WHERE id_siswa = ?`,
+        [JSON.stringify(uploadedFilePaths), pendaftarId]
+      );
+    }
+
     await connection.end();
 
-    return new Response(JSON.stringify({ message: 'Pendaftaran berhasil!' }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
-
+    return new Response(
+      JSON.stringify({
+        message: 'Pendaftaran berhasil!',
+        id_pendaftar_siswa: pendaftarId,
+        files: uploadedFilePaths,
+      }),
+      {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
   } catch (err) {
-    return new Response(JSON.stringify({ error: err.message }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return new Response(
+      JSON.stringify({ error: err.message }),
+      {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
   }
 }

@@ -1,49 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 
 export default function GuruStaffPage() {
-  const staffList = [
-    {
-      name: "Rahmi Annisa, S.Pd., Gr",
-      role: "Kepala Sekolah",
-      nip: "1234567890",
-      tempatLahir: "Makassar",
-      tanggalLahir: "10 Januari 1980",
-      jenisKelamin: "Perempuan",
-      image: "/images/guru2.png",
-    },
-    {
-      name: "A. Jumriana, S.Pd",
-      role: "Guru TK A",
-      nip: "1234567891",
-      tempatLahir: "Gowa",
-      tanggalLahir: "15 Maret 1985",
-      jenisKelamin: "Perempuan",
-      image: "/images/guru3.png",
-    },
-    {
-      name: "Ihwana, S.Pd.I",
-      role: "Guru TK B",
-      nip: "1234567892",
-      tempatLahir: "Parepare",
-      tanggalLahir: "20 Juni 1988",
-      jenisKelamin: "Perempuan",
-      image: "/images/guru2.png",
-    },
-    {
-      name: "Megawati, S.Pd.I",
-      role: "Guru PAI",
-      nip: "1234567893",
-      tempatLahir: "Bone",
-      tanggalLahir: "1 Desember 1983",
-      jenisKelamin: "Perempuan",
-      image: "/images/guru3.png",
-    },
-  ];
-
+  const [staffList, setStaffList] = useState([]);
   const [selectedStaff, setSelectedStaff] = useState(null);
+
+  useEffect(() => {
+    async function fetchGuru() {
+      try {
+        const res = await fetch("/api/guru");
+        if (!res.ok) throw new Error("Gagal fetch data guru");
+        const data = await res.json();
+        setStaffList(data);
+      } catch (error) {
+        console.error("Error fetch guru:", error);
+      }
+    }
+
+    fetchGuru();
+  }, []);
 
   const openModal = (staff) => setSelectedStaff(staff);
   const closeModal = () => setSelectedStaff(null);
@@ -66,16 +43,16 @@ export default function GuruStaffPage() {
           >
             <div className="bg-gray-100 h-80 flex items-center justify-center">
               <img
-                src={staff.image}
-                alt={staff.name}
+                src={staff.foto || "/images/nofoto.png"}
+                alt={staff.nama}
                 className="object-cover w-full h-full"
               />
             </div>
             <div className="bg-gradient-to-r from-lime-300 to-lime-100 px-4 py-8 rounded-b-2xl ">
               <h3 className="font-bold text-center text-md text-black">
-                {staff.name}
+                {staff.nama}
               </h3>
-              <p className="text-sm text-center text-gray-700">{staff.role}</p>
+              <p className="text-sm text-center text-gray-700">{staff.jabatan}</p>
             </div>
           </div>
         ))}
@@ -83,50 +60,38 @@ export default function GuruStaffPage() {
 
       {/* Modal */}
       {selectedStaff && (
-        <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 bg-gradient-to-r from-lime-300 to-lime-100 w-[700px] max-w-full rounded-xl shadow-xl border border-gray-200 overflow-hidden flex flex-col md:flex-row min-h-[400px]">
-          {/* Gambar */}
-          <div className="md:w-1/2 bg-gray-100 flex items-center justify-center p-4">
-            <Image
-              src={selectedStaff.image}
-              alt={selectedStaff.name}
-              width={300}
-              height={300}
-              className="object-cover rounded-md w-full h-[300px]"
-              unoptimized
-            />
-          </div>
-
-          {/* Data */}
-          <div className="md:w-1/2 p-6 flex flex-col justify-between w-full space-y-2 text-md">
-            <div className="mt-6 space-y-4">
-              <h2 className="text-xl text-center font-bold mb-4">
-                {selectedStaff.name}
-              </h2>
-              <p className="pt-2">
-                <strong>Jabatan:</strong> {selectedStaff.role}
-              </p>
-              <p>
-                <strong>NIP:</strong> {selectedStaff.nip}
-              </p>
-              <p>
-                <strong>Tempat Lahir:</strong> {selectedStaff.tempatLahir}
-              </p>
-              <p>
-                <strong>Tanggal Lahir:</strong> {selectedStaff.tanggalLahir}
-              </p>
-              <p>
-                <strong>Jenis Kelamin:</strong> {selectedStaff.jenisKelamin}
-              </p>
+        <div className="fixed inset-0 z-30 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-gradient-to-r from-lime-300 to-lime-100 w-[700px] max-w-full rounded-xl shadow-xl border border-gray-200 overflow-hidden flex flex-col md:flex-row min-h-[400px]">
+            <div className="md:w-1/2 bg-gray-100 flex items-center justify-center p-4">
+              <Image
+                src={selectedStaff.foto || "/images/nofoto.png"}
+                alt={selectedStaff.nama}
+                width={300}
+                height={300}
+                className="object-cover rounded-md w-full h-[300px]"
+                unoptimized
+              />
             </div>
 
-            {/* Tombol Tutup */}
-            <div className="flex justify-end mt-6">
-              <button
-                onClick={closeModal}
-                className="bg-white border rounded-4xl border-gray-300 text-gray-700 px-6 py-2 hover:bg-gray-200 transition"
-              >
-                Tutup
-              </button>
+            <div className="md:w-1/2 p-6 flex flex-col justify-between space-y-2 text-md">
+              <div className="space-y-4">
+                <h2 className="text-xl text-center font-bold mb-4">
+                  {selectedStaff.nama}
+                </h2>
+                <p><strong>Jabatan:</strong> {selectedStaff.jabatan}</p>
+                <p><strong>NIP:</strong> {selectedStaff.nip}</p>
+                <p><strong>Tempat Lahir:</strong> {selectedStaff.tempat_lahir}</p>
+                <p><strong>Tanggal Lahir:</strong> {selectedStaff.tanggal_lahir}</p>
+                <p><strong>Jenis Kelamin:</strong> {selectedStaff.jenis_kelamin}</p>
+              </div>
+              <div className="flex justify-end mt-6">
+                <button
+                  onClick={closeModal}
+                  className="bg-white border rounded-4xl border-gray-300 text-gray-700 px-6 py-2 hover:bg-gray-200 transition"
+                >
+                  Tutup
+                </button>
+              </div>
             </div>
           </div>
         </div>
