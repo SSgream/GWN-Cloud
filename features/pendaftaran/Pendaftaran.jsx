@@ -25,20 +25,20 @@ export default function Pendaftaran() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-  
+
     const formData = new FormData(e.target);
-  
+
     // Tambahkan file-file ke FormData
     files.forEach((item, index) => {
       formData.append("berkas", item.file); // key-nya sama semua: 'berkas'
     });
-  
+
     try {
       const res = await fetch("/api/pendaftaran", {
         method: "POST",
         body: formData, // tidak perlu JSON.stringify
       });
-  
+
       const result = await res.json();
       if (res.ok) {
         alert("Pendaftaran berhasil!");
@@ -52,11 +52,11 @@ export default function Pendaftaran() {
       setLoading(false);
     }
   };
-  
+
 
   return (
-    <div className="bg-white min-h-screen pt-48 py-12 px-6 md:px-20">
-      <h1 className="text-2xl md:text-3xl font-bold text-center mb-10">
+    <div className="bg-white min-h-screen pt-48 py-12 px-4 md:px-20 mx-auto text-md md:text-sm sm:max-w-md md:max-w-none">
+      <h1 className="text-2xl md:text-3xl font-bold text-center mb-12 md:mb-10">
         Formulir Pendaftaran Calon Siswa Baru
       </h1>
 
@@ -106,59 +106,58 @@ export default function Pendaftaran() {
             </div>
 
             {/* Jenis Kelamin, Anak Ke, dan Jumlah Saudara */}
-            <div className="flex flex-col">
-              <div className="flex gap-16">
-                {/* Jenis Kelamin */}
-                <div className="flex flex-col">
-                  <span className="text-sm font-medium mb-1">
-                    Jenis Kelamin
-                  </span>
-                  <div className="flex gap-4">
-                    <label className="flex items-center gap-1">
-                      <input
-                        type="radio"
-                        name="jenis_kelamin"
-                        value="Laki-Laki"
-                        className="accent-blue-600"
-                      />
-                      Laki - Laki
-                    </label>
-                    <label className="flex items-center gap-1">
-                      <input
-                        type="radio"
-                        name="jenis_kelamin"
-                        value="Perempuan"
-                        className="accent-pink-500"
-                      />
-                      Perempuan
-                    </label>
-                  </div>
-                </div>
-
-                {/* Anak Ke */}
-                <div className="flex flex-col">
-                  <label className="text-sm font-medium mb-1">Anak Ke-</label>
-                  <input
-                    type="number"
-                    name="anak_ke"
-                    placeholder="Anak ke-"
-                    className="bg-gray-100 p-2 rounded w-32"
-                  />
-                </div>
-
-                {/* Jumlah Saudara */}
-                <div className="flex flex-col">
-                  <label className="text-sm font-medium mb-1">
-                    Jumlah Saudara
+            <div className="flex flex-col md:flex-row md:gap-16 space-y-4 md:space-y-0">
+              {/* Jenis Kelamin */}
+              <div className="flex flex-col">
+                <span className="text-sm font-medium mb-1">
+                  Jenis Kelamin
+                </span>
+                <div className="flex gap-4">
+                  <label className="flex items-center gap-1">
+                    <input
+                      type="radio"
+                      name="jenis_kelamin"
+                      value="Laki-Laki"
+                      className="accent-blue-600"
+                    />
+                    Laki - Laki
                   </label>
-                  <input
-                    type="number"
-                    name="jumlah_saudara"
-                    placeholder="Jumlah saudara"
-                    className="bg-gray-100 p-2 rounded w-40"
-                  />
+                  <label className="flex items-center gap-1">
+                    <input
+                      type="radio"
+                      name="jenis_kelamin"
+                      value="Perempuan"
+                      className="accent-pink-500"
+                    />
+                    Perempuan
+                  </label>
                 </div>
               </div>
+
+              {/* Anak Ke */}
+              <div className="flex flex-col">
+                <label className="text-sm font-medium mb-1">Anak Ke-</label>
+                <input
+                  type="number"
+                  name="anak_ke"
+                  placeholder="Anak ke-"
+                  className="bg-gray-100 p-2 rounded w-32"
+                />
+              </div>
+
+              {/* Jumlah Saudara */}
+              <div className="flex flex-col">
+                <label className="text-sm font-medium mb-1">
+                  Jumlah Saudara
+                </label>
+                <input
+                  type="number"
+                  name="jumlah_saudara"
+                  placeholder="Jumlah saudara"
+                  className="bg-gray-100 p-2 rounded w-40"
+                />
+              </div>
+
             </div>
 
             {/* Agama */}
@@ -258,69 +257,69 @@ export default function Pendaftaran() {
           </div>
 
           <div className="flex items-center justify-center min-h-[200px]">
-    <div className="w-full max-w-sm border border-dashed rounded-md p-4 min-h-[160px] flex items-center justify-center">
-      {files.length === 0 ? (
-        <button
-          onClick={() => inputRef.current.click()}
-          className="flex flex-col items-center text-gray-500 hover:text-blue-500"
-        >
-          <Upload className="w-6 h-6 mb-1" />
-          <span>Unggah berkas</span>
-        </button>
-      ) : (
-        <div className="w-full space-y-2">
-          {files.map((file, i) => (
-            <div
-              key={i}
-              className="flex items-center justify-between bg-gray-50 px-2 py-1 rounded"
-            >
-              <div className="flex items-center gap-2">
-                {file.type.startsWith("image/") ? (
-                  <img
-                    src={file.url}
-                    alt="preview"
-                    className="w-6 h-6 object-cover rounded"
-                  />
-                ) : (
-                  <span className="text-gray-500">📎</span>
-                )}
-                <span className="text-sm truncate max-w-[140px]">
-                  {file.name}
-                </span>
-              </div>
-              <button
-                onClick={() => removeFile(i)}
-                className="text-red-500 hover:text-red-700"
-              >
-                <X className="w-4 h-4" />
-              </button>
+            <div className="w-full max-w-xs md:max-w-sm border border-dashed rounded-md p-4 min-h-[160px] flex items-center justify-center">
+              {files.length === 0 ? (
+                <button
+                  onClick={() => inputRef.current.click()}
+                  className="flex flex-col items-center text-gray-500 hover:text-blue-500"
+                >
+                  <Upload className="w-6 h-6 mb-1" />
+                  <span>Unggah berkas</span>
+                </button>
+              ) : (
+                <div className="w-full space-y-2">
+                  {files.map((file, i) => (
+                    <div
+                      key={i}
+                      className="flex items-center justify-between bg-gray-50 px-2 py-1 rounded"
+                    >
+                      <div className="flex items-center gap-2">
+                        {file.type.startsWith("image/") ? (
+                          <img
+                            src={file.url}
+                            alt="preview"
+                            className="w-6 h-6 object-cover rounded"
+                          />
+                        ) : (
+                          <span className="text-gray-500">📎</span>
+                        )}
+                        <span className="text-sm truncate max-w-[140px]">
+                          {file.name}
+                        </span>
+                      </div>
+                      <button
+                        onClick={() => removeFile(i)}
+                        className="text-red-500 hover:text-red-700"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ))}
+                  <button
+                    onClick={() => inputRef.current.click()}
+                    className="flex items-center gap-1 text-blue-600 text-sm hover:underline"
+                  >
+                    <Plus className="w-4 h-4" />
+                    Tambah berkas
+                  </button>
+                </div>
+              )}
+              <input
+                type="file"
+                multiple
+                ref={inputRef}
+                className="hidden"
+                onChange={handleChange}
+              />
             </div>
-          ))}
-          <button
-            onClick={() => inputRef.current.click()}
-            className="flex items-center gap-1 text-blue-600 text-sm hover:underline"
-          >
-            <Plus className="w-4 h-4" />
-            Tambah berkas
-          </button>
-        </div>
-      )}
-      <input
-        type="file"
-        multiple
-        ref={inputRef}
-        className="hidden"
-        onChange={handleChange}
-      />
-    </div>
-  </div>
+          </div>
         </section>
 
         {/* SUBMIT */}
         <div className="text-center">
           <button
             type="submit"
-            className="bg-green-700 hover:bg-green-800 text-white py-3 px-8 rounded"
+            className="bg-green-700 hover:bg-green-800 text-white py-3 px-8 rounded text-sm md:text-base"
             disabled={loading}
           >
             {loading ? "Mengirim..." : "SUBMIT"}

@@ -6,7 +6,14 @@ export default function Footer() {
       <div className="grid grid-cols-1 gap-10 mx-auto text-sm text-black max-w-7xl md:grid-cols-3">
         {/* Logo + Deskripsi */}
         <div className="flex flex-col items-start">
-          <Image src="https://gwn-bucket.s3.us-east-1.amazonaws.com/images/logoo.png" alt="Logo" width={80} height={80} className="mb-4" unoptimized />
+          <div className='relative w-8 h-8 md:w-20 md:h-20 mb-4'>
+            <Image 
+          src="https://gwn-bucket.s3.us-east-1.amazonaws.com/images/logoo.png" 
+          alt="Logo" 
+          width={80} height={80} 
+          className="mb-4" unoptimized 
+          />
+            </div>
           <p className="max-w-sm mt-2 leading-relaxed">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
@@ -24,7 +31,7 @@ export default function Footer() {
               <li>Kontak</li>
             </ul>
           </div>
-          <div className="mt-7 md:mt-0">
+          <div className="mt-2 md:mt-0">
             <ul className="space-y-1">
               <li>Daftar PPDB</li>
               <li>Panduan PPDB 2025</li>
@@ -35,7 +42,7 @@ export default function Footer() {
         </div>
 
         {/* Kontak */}
-        <div className="ml-20 space-y-4">
+        <div className="ml-0 md:ml-20 space-y-4">
           <div className="flex items-start gap-3">
             <span className="mt-1 text-lg text-yellow-600">📍</span>
             <p>Parukku, Desa Bulolohe,<br />Kec. Rilau Ale, Kab. Bulukumba</p>
