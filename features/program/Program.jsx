@@ -44,7 +44,7 @@ export default function ProgramPage() {
     <main className="min-h-screen flex flex-col items-center justify-center bg-white px-6 md:px-20 py-10">
       <div className="rounded-xl p-6 pt-40 grid lg:grid-cols-2 gap-10 items-center w-full max-w-6xl">
         {/* Gambar */}
-        <div className="relative w-full h-[350px]">
+        <div className="relative w-full h-[250px] md:h-[350px]">
           <div className="absolute inset-0 rounded-[60px_0_60px_0] overflow-hidden border-[10px] border-orange-300">
             <Image
               src={program.image}
