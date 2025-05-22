@@ -53,14 +53,21 @@ export default function Pendaftaran() {
     }
   };
 
-
   return (
     <div className="bg-white min-h-screen pt-48 py-12 px-4 md:px-20 mx-auto text-md md:text-sm sm:max-w-md md:max-w-none">
       <h1 className="text-2xl md:text-3xl font-bold text-center mb-12 md:mb-10">
         Formulir Pendaftaran Calon Siswa Baru
       </h1>
 
-      <form className="space-y-12" onSubmit={handleSubmit}>
+      <form
+        className="space-y-12"
+        onSubmit={handleSubmit}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") {
+            e.preventDefault(); // mencegah form submit saat tekan Enter
+          }
+        }}
+      >
         <section>
           <h2 className="text-2xl font-semibold mb-4">Data Siswa</h2>
           <div className="grid md:grid-cols-2 gap-4">
@@ -109,9 +116,7 @@ export default function Pendaftaran() {
             <div className="flex flex-col md:flex-row md:gap-16 space-y-4 md:space-y-0">
               {/* Jenis Kelamin */}
               <div className="flex flex-col">
-                <span className="text-sm font-medium mb-1">
-                  Jenis Kelamin
-                </span>
+                <span className="text-sm font-medium mb-1">Jenis Kelamin</span>
                 <div className="flex gap-4">
                   <label className="flex items-center gap-1">
                     <input
@@ -157,7 +162,6 @@ export default function Pendaftaran() {
                   className="bg-gray-100 p-2 rounded w-40"
                 />
               </div>
-
             </div>
 
             {/* Agama */}
@@ -260,6 +264,7 @@ export default function Pendaftaran() {
             <div className="w-full max-w-xs md:max-w-sm border border-dashed rounded-md p-4 min-h-[160px] flex items-center justify-center">
               {files.length === 0 ? (
                 <button
+                  type="button"
                   onClick={() => inputRef.current.click()}
                   className="flex flex-col items-center text-gray-500 hover:text-blue-500"
                 >
@@ -288,6 +293,7 @@ export default function Pendaftaran() {
                         </span>
                       </div>
                       <button
+                        type="button"
                         onClick={() => removeFile(i)}
                         className="text-red-500 hover:text-red-700"
                       >
@@ -296,6 +302,7 @@ export default function Pendaftaran() {
                     </div>
                   ))}
                   <button
+                    type="button"
                     onClick={() => inputRef.current.click()}
                     className="flex items-center gap-1 text-blue-600 text-sm hover:underline"
                   >
