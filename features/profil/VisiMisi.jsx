@@ -16,9 +16,10 @@ export default function VisiMisi() {
 
   return (
     <section className="w-full min-h-screen py-16 bg-white pt-46 relative px-4 md:px-20">
-      <h2 className="mb-10 md:mb-12 text-3xl font-bold text-center text-black md:text-4xl">
+      <h2 className="mb-4 text-3xl font-bold text-center text-black md:text-4xl">
         Visi Misi
       </h2>
+      <div className="h-1 w-24 mx-auto bg-orange-400 rounded mb-10 md:mb-12 "></div>
 
       <div className="flex flex-col md:flex-row gap-10 items-center justify-center">
         {/* Kartu Visi */}
@@ -55,7 +56,8 @@ export default function VisiMisi() {
       {/* Modal yang menampilkan Visi dan Misi lengkap */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center px-4 bg-opacity-50">
-          <div className="bg-gradient-to-br from-[#80C904] via-[#80C904] to-[#3F6302] text-white rounded-2xl shadow-2xl w-full max-w-3xl p-6 md:p-10 text-center overflow-auto max-h-[90vh]">
+          <div className="bg-gradient-to-br from-[#80C904] via-[#80C904] to-[#3F6302] text-white rounded-2xl shadow-2xl w-full max-w-3xl p-6 md:p-10 text-center overflow-auto max-h-[90vh] border-4 border-white">
+
             <h3 className="text-2xl font-bold mb-6">Visi</h3>
             <p className="whitespace-pre-line text-justify text-lg leading-relaxed mb-8">{visiText}</p>
 

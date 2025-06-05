@@ -30,7 +30,8 @@ export default function KegiatanPage() {
 
   return (
     <main className="min-h-screen bg-gray-50 pt-44 pb-16 px-6 md:px-16">
-      <h1 className="text-center text-3xl font-bold mb-8">Kegiatan TK Azizah 2</h1>
+      <h1 className="text-center text-3xl font-bold mb-4">Kegiatan TK Azizah 2</h1>
+            <div className="h-1 w-24 mx-auto bg-orange-400 rounded mb-6"></div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-20">
         {visibleKegiatan.map((item, idx) => (

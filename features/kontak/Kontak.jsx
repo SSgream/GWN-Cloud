@@ -53,6 +53,7 @@ export default function Kontak() {
       {/* Heading */}
       <div className="text-center mb-10">
         <h2 className="text-3xl font-bold mb-2">Kontak</h2>
+       <div className="h-1 w-24 mx-auto bg-orange-400 rounded mb-2"></div>
         <p className="text-sm text-gray-700">
           Jika Memiliki Pertanyaan dan Testimoni Bisa Langsung Isi Form Dibawah Ini
         </p>

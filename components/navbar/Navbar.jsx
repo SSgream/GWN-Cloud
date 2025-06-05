@@ -72,7 +72,7 @@ export default function Navbar() {
                                 }`}
                               >
                                 {sub.title}
-                                <span className="ml-2 text-gray-400">→</span>
+                                {/* <span className="ml-2 text-gray-400">→</span> */}
                               </Link>
                             </li>
                           ))}
