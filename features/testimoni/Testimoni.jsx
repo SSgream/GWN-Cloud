@@ -50,9 +50,10 @@ export default function Testimoni() {
 
   return (
     <div className="bg-white pt-44 py-10 px-4 min-h-screen">
-      <div className="text-center mb-8 md:mb-16">
+      <div className="text-center mb-4 md:mb-4">
         <h2 className="text-2xl md:text-3xl font-bold">Testimoni Orang Tua</h2>
       </div>
+            <div className="h-1 w-24 mx-auto bg-orange-400 rounded mb-6 md:mb-12"></div>
 
       {/* Container yang nge-mask supaya hanya 3 card yang kelihatan */}
       <div
