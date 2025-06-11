@@ -14,7 +14,7 @@ export async function POST(request) {
 
     await connection.execute(
       "INSERT INTO testimoni (nama, no_telpon, isi_pesan, tampilkan, created_at) VALUES (?, ?, ?, ?, NOW())",
-      [nama, no_telpon, isi_pesan, 1]
+      [nama, no_telpon, isi_pesan, 0]
     );
 
     await connection.end();

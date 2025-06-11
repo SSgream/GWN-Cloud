@@ -53,9 +53,10 @@ export default function Kontak() {
       {/* Heading */}
       <div className="text-center mb-10">
         <h2 className="text-3xl font-bold mb-2">Kontak</h2>
-       <div className="h-1 w-24 mx-auto bg-orange-400 rounded mb-2"></div>
+        <div className="h-1 w-24 mx-auto bg-orange-400 rounded mb-2"></div>
         <p className="text-sm text-gray-700">
-          Jika Memiliki Pertanyaan dan Testimoni Bisa Langsung Isi Form Dibawah Ini
+          Jika Memiliki Pertanyaan dan Testimoni Bisa Langsung Isi Form Dibawah
+          Ini
         </p>
       </div>
 
@@ -107,10 +108,15 @@ export default function Kontak() {
             value={formData.isi_pesan}
             onChange={handleChange}
             placeholder="Pesan kamu"
+            maxLength={300}
             className="w-full border-none bg-gray-100 p-3 rounded resize-none focus:outline-none"
             required
           />
+          <div className="text-right text-sm text-gray-500 mt-1">
+            {formData.isi_pesan.length}/300 karakter
+          </div>
         </div>
+
         <div className="text-center">
           <button
             type="submit"
@@ -121,7 +127,9 @@ export default function Kontak() {
           </button>
         </div>
         {message && (
-          <div className="text-center mt-4 text-sm text-green-700">{message}</div>
+          <div className="text-center mt-4 text-sm text-green-700">
+            {message}
+          </div>
         )}
       </form>
 

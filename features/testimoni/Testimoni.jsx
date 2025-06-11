@@ -33,7 +33,7 @@ export default function Testimoni() {
 
   const visibleCount = isMobile ? 1 : 3;
   const cardWidth = 320; // ukuran card tetap
-  const gap = 80; // jarak antar card
+  const gap = 50; // jarak antar card
   const totalCardWidth = cardWidth + gap;
   const maxIndex = testimoni.length - visibleCount;
 
@@ -49,7 +49,7 @@ export default function Testimoni() {
   }, [testimoni, maxIndex, visibleCount]);
 
   return (
-    <div className="bg-white pt-44 py-10 px-4 min-h-screen">
+    <div className="bg-white pt-44 py-10 px-4 md:px-20 min-h-screen">
       <div className="text-center mb-4 md:mb-4">
         <h2 className="text-2xl md:text-3xl font-bold">Testimoni Orang Tua</h2>
       </div>
@@ -72,7 +72,7 @@ export default function Testimoni() {
           {testimoni.map((t, i) => (
             <div
               key={i}
-              className="bg-green-50 rounded-xl p-8 shadow-md flex flex-col justify-between min-h-[280px]"
+              className="bg-green-50 rounded-xl p-8 shadow-md flex flex-col justify-between min-h-[380px] md:min-h-[340px]"
               style={{ minWidth: `${cardWidth}px`, maxWidth: `${cardWidth}px` }}
             >
               <p className="text-sm md:text-base space-y-2 mb-6 font-medium italic relative before:content-['“'] before:text-4xl before:text-green-400 before:absolute before:-left-4 before:-top-2">

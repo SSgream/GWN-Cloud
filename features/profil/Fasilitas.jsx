@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-
 export default function FasilitasPage() {
   const fasilitas = [
     {
@@ -48,18 +47,22 @@ export default function FasilitasPage() {
     },
   ];
 
-  const [startIndex, setStartIndex] = useState(0);
-  const visibleFasilitas = fasilitas.slice(startIndex, startIndex + 3);
+  const itemsPerPage = 3;
+  const totalPages = Math.ceil(fasilitas.length / itemsPerPage);
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const startIndex = currentPage * itemsPerPage;
+  const visibleFasilitas = fasilitas.slice(startIndex, startIndex + itemsPerPage);
 
   const handleNext = () => {
-    if (startIndex + 3 < fasilitas.length) {
-      setStartIndex(startIndex + 3);
+    if (currentPage < totalPages - 1) {
+      setCurrentPage(currentPage + 1);
     }
   };
 
   const handlePrev = () => {
-    if (startIndex > 0) {
-      setStartIndex(startIndex - 3);
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
     }
   };
 
@@ -72,7 +75,7 @@ export default function FasilitasPage() {
 
       <AnimatePresence mode="wait">
         <motion.div
-          key={startIndex}
+          key={currentPage}
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -100 }}
@@ -102,18 +105,24 @@ export default function FasilitasPage() {
         </motion.div>
       </AnimatePresence>
 
-      <div className="flex justify-center gap-4 mt-6">
+      {/* Pagination controls */}
+      <div className="flex justify-center items-center gap-4 mt-8">
         <button
           onClick={handlePrev}
-          disabled={startIndex === 0}
-          className={`text-2xl w-10 h-10 rounded-full bg-orange-400 text-white font-bold disabled:opacity-50`}
+          disabled={currentPage === 0}
+          className="text-2xl w-10 h-10 rounded-full bg-orange-400 text-white font-bold disabled:opacity-50"
         >
           &lt;
         </button>
+
+        <span className="text-lg font-semibold text-gray-700">
+          {currentPage + 1} / {totalPages}
+        </span>
+
         <button
           onClick={handleNext}
-          disabled={startIndex + 3 >= fasilitas.length}
-          className={`text-2xl w-10 h-10 rounded-full bg-orange-400 text-white font-bold disabled:opacity-50`}
+          disabled={currentPage === totalPages - 1}
+          className="text-2xl w-10 h-10 rounded-full bg-orange-400 text-white font-bold disabled:opacity-50"
         >
           &gt;
         </button>
