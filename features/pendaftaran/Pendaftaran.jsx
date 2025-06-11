@@ -6,6 +6,8 @@ import { Upload, Plus, X } from "lucide-react";
 export default function Pendaftaran() {
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const inputRef = useRef(null);
 
   const handleChange = (e) => {
@@ -28,26 +30,30 @@ export default function Pendaftaran() {
 
     const formData = new FormData(e.target);
 
-    // Tambahkan file-file ke FormData
-    files.forEach((item, index) => {
-      formData.append("berkas", item.file); // key-nya sama semua: 'berkas'
+    files.forEach((item) => {
+      formData.append("berkas", item.file);
     });
 
     try {
       const res = await fetch("/api/pendaftaran", {
         method: "POST",
-        body: formData, // tidak perlu JSON.stringify
+        body: formData,
       });
 
       const result = await res.json();
       if (res.ok) {
-        alert("Pendaftaran berhasil!");
+        e.target.reset(); // Reset semua input form
+        setFiles([]); // Kosongkan file yang diunggah
+        setModalMessage("✅ Pendaftaran berhasil!");
+        setShowModal(true);
       } else {
-        alert("Gagal: " + result.error);
+        setModalMessage("❌ Gagal: " + result.error);
+        setShowModal(true);
       }
     } catch (err) {
       console.error("Network error:", err);
-      alert("Terjadi kesalahan saat mengirim data");
+      setModalMessage("❌ Terjadi kesalahan saat mengirim data.");
+      setShowModal(true);
     } finally {
       setLoading(false);
     }
@@ -333,6 +339,23 @@ export default function Pendaftaran() {
           </button>
         </div>
       </form>
+
+      {/* Modal */}
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-50">
+          <div className="bg-white p-6 rounded-md shadow-md w-full max-w-sm text-center">
+            <p className="text-gray-800">{modalMessage}</p>
+            <div className="mt-4">
+              <button
+                onClick={() => setShowModal(false)}
+                className="bg-lime-600 hover:bg-lime-700 text-white px-4 py-2 rounded"
+              >
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <style jsx>{`
         .input {

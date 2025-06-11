@@ -33,8 +33,8 @@ export async function POST(req) {
 
     // Insert data ayah
     const [ayahResult] = await connection.execute(
-      `INSERT INTO ayah (nama, tempat_lahir, tanggal_lahir, agama, kewarganegaraan, pekerjaan, pendidikan, status_dalam_keluarga)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO ayah (nama, tempat_lahir, tanggal_lahir, agama, kewarganegaraan, pekerjaan, pendidikan, status_dalam_keluarga, created_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())`,
       [
         body.ayah_nama,
         body.ayah_tempat_lahir,
@@ -50,8 +50,8 @@ export async function POST(req) {
 
     // Insert data ibu
     const [ibuResult] = await connection.execute(
-      `INSERT INTO ibu (nama, tempat_lahir, tanggal_lahir, agama, kewarganegaraan, pekerjaan, pendidikan, status_dalam_keluarga)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO ibu (nama, tempat_lahir, tanggal_lahir, agama, kewarganegaraan, pekerjaan, pendidikan, status_dalam_keluarga, created_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())`,
       [
         body.ibu_nama,
         body.ibu_tempat_lahir,
@@ -68,8 +68,8 @@ export async function POST(req) {
     // Insert data pendaftar_siswa tanpa file_paths dulu
     const [pendaftarResult] = await connection.execute(
       `INSERT INTO pendaftar_siswa
-        (nama_lengkap, nama_panggilan, tempat_lahir, tanggal_lahir, jenis_kelamin, anak_ke, jumlah_saudara, agama, status_dalam_keluarga, kewarganegaraan, id_ayah, id_ibu)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        (nama_lengkap, nama_panggilan, tempat_lahir, tanggal_lahir, jenis_kelamin, anak_ke, jumlah_saudara, agama, status_dalam_keluarga, kewarganegaraan, id_ayah, id_ibu, created_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())`,
       [
         body.nama_lengkap,
         body.nama_panggilan,

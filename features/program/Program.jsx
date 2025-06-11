@@ -14,10 +14,10 @@ const programData = [
   },
   {
     title: "Ekstrakurikuler",
-    description: `Ekstrakurikuler di TK AZIZAH 2 dirancang berdasarkan asesmen tahunan untuk menyesuaikan dengan minat, bakat, dan kebutuhan peserta didik. Kegiatan ini menjadi wadah bagi anak untuk berekspresi dan berkembang. Berikut beberapa program ekstrakurikuler yang tersedia:`,
+    description: `Ekstrakurikuler di TK AZIZAH 2 dirancang berdasarkan asesmen tahunan untuk menyesuaikan dengan minat, bakat, dan kebutuhan peserta didik. Kegiatan ini menjadi wadah bagi anak untuk berekspresi dan berkembang.`,
     subpoints: [
-      "Menari Membekali peserta didik untuk memiliki kreatifitas,mengolah rasa dalam sebuah gerakan yang indah, menjaga Warisan leluhur,bergotong royong  menghasilkan Gerakan yang seirama",
-      "Bahasa Inggris Membekali peserta didik agar bisa berbahasa inggris tingkat dasar (kata benda,angka,dan anggota badan)",
+      "Menari: Membekali peserta didik dengan kreatifitas, mengolah rasa, menjaga warisan leluhur, dan bergotong royong.",
+      "Bahasa Inggris: Membekali peserta didik agar bisa berbahasa Inggris tingkat dasar (kata benda, angka, dan anggota badan).",
     ],
     image: "https://gwn-bucket.s3.us-east-1.amazonaws.com/images/intrakulikuler.jpg",
   },
@@ -25,8 +25,8 @@ const programData = [
     title: "Proyek Penguatan Profil Pelajar Pancasila",
     description: `Proyek ini merupakan kegiatan kokurikuler yang terjadwal tanpa mengurangi pembelajaran reguler. TK Azizah 2 menjalankan 4 proyek per tahun, dengan fokus penguatan nilai gotong royong, kepedulian, dan kreativitas.`,
     subpoints: [
-      "Semester 1 “Aku Cinta Indonesia” dan “Imajinasiku”",
-      "Semester 2 “Aku Sayang Bumi” dan “Kita Semua Bersaudara”",
+      "Semester 1: “Aku Cinta Indonesia” dan “Imajinasiku”",
+      "Semester 2: “Aku Sayang Bumi” dan “Kita Semua Bersaudara”",
     ],
     image: "https://gwn-bucket.s3.us-east-1.amazonaws.com/images/intrakulikuler.jpg",
   },
@@ -34,10 +34,15 @@ const programData = [
 
 export default function ProgramPage() {
   const [index, setIndex] = useState(0);
+  const totalPages = programData.length;
   const program = programData[index];
 
   const handleNext = () => {
-    setIndex((prevIndex) => (prevIndex + 1) % programData.length);
+    if (index < totalPages - 1) setIndex(index + 1);
+  };
+
+  const handlePrev = () => {
+    if (index > 0) setIndex(index - 1);
   };
 
   return (
@@ -50,8 +55,8 @@ export default function ProgramPage() {
               src={program.image}
               alt={program.title}
               fill
-              objectFit="cover"
               className="object-cover"
+              unoptimized
             />
           </div>
         </div>
@@ -62,9 +67,7 @@ export default function ProgramPage() {
             {program.title}
           </h2>
           <div className="space-y-4 overflow-y-auto">
-            <p className="text-gray-700 leading-relaxed">
-              {program.description}
-            </p>
+            <p className="text-gray-700 leading-relaxed">{program.description}</p>
             <ul className="list-none space-y-2">
               {program.subpoints.map((point, i) => (
                 <li key={i} className="flex items-start gap-2">
@@ -77,13 +80,26 @@ export default function ProgramPage() {
         </div>
       </div>
 
-      {/* Tombol next */}
-      <div className="mt-8 w-full max-w-6xl flex justify-end">
+      {/* Navigasi seperti permintaan */}
+      <div className="flex justify-center items-center gap-4 mt-10">
+        <button
+          onClick={handlePrev}
+          disabled={index === 0}
+          className="text-2xl w-10 h-10 rounded-full bg-orange-400 text-white font-bold disabled:opacity-50"
+        >
+          &lt;
+        </button>
+
+        <span className="text-lg font-semibold text-gray-700">
+          {index + 1} / {totalPages}
+        </span>
+
         <button
           onClick={handleNext}
-          className="bg-orange-400 hover:bg-orange-500 text-white font-semibold px-16 py-4 rounded-full transition"
+          disabled={index === totalPages - 1}
+          className="text-2xl w-10 h-10 rounded-full bg-orange-400 text-white font-bold disabled:opacity-50"
         >
-          Next
+          &gt;
         </button>
       </div>
     </main>
