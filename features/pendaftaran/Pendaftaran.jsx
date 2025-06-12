@@ -348,7 +348,7 @@ export default function Pendaftaran() {
             <div className="mt-4">
               <button
                 onClick={() => setShowModal(false)}
-                className="bg-lime-600 hover:bg-lime-700 text-white px-4 py-2 rounded"
+                className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
               >
                 OK
               </button>
