@@ -16,11 +16,11 @@ export default function Home() {
       </div>
 
       {/* Hero Section */}
-      <section className="p-10 md:p-20 pt-55">
+      <section className="pt-55 md:pt-20 px-6 md:px-20">
         {/* Mobile Layout - Vertikal */}
         <div className="flex flex-col items-center space-y-6 md:hidden">
           {/* Logo di mobile */}
-          <div className="relative w-64 h-64">
+          <div className="relative w-40 h-40 md:w-64 md:h-64">
             <Image
               src="https://gwn-bucket.s3.us-east-1.amazonaws.com/images/logoo.png"
               alt="Logo TK Azizah 2"
