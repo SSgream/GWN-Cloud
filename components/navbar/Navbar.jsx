@@ -22,13 +22,18 @@ export default function Navbar() {
     <nav className="fixed top-0 z-50 w-full bg-gray-100 shadow-sm">
       {/* Banner atas */}
       <div className="py-3 text-sm text-center text-white custom-green-bg">
-      Buka Pendaftaran! Jangan Lewatkan Tanggal 20–24 April 📆
+        Buka Pendaftaran! Jangan Lewatkan Tanggal 20–24 April 📆
       </div>
 
       <div className="flex items-center justify-between max-w-screen-xl px-6 py-4 mx-auto bg-gray-100 md:px-12 lg:px-36">
         {/* Logo */}
         <Link href="/" className="flex-shrink-0">
-          <Image src="https://gwn-bucket.s3.us-east-1.amazonaws.com/images/logoo.png" alt="Logo" width={50} height={50} />
+          <Image
+            src="https://gwn-bucket.s3.us-east-1.amazonaws.com/images/logoo.png"
+            alt="Logo"
+            width={50}
+            height={50}
+          />
         </Link>
 
         {/* Menu Desktop */}
@@ -120,7 +125,11 @@ export default function Navbar() {
               {nav.submenu ? (
                 <>
                   <button
-                    className="block w-full py-2 font-semibold text-left"
+                    className={`flex justify-between items-center w-full hover:text-green-600 py-2 font-semibold text-left transition-colors ${
+                      activeDropdown === nav.title
+                        ? "text-green-600"
+                        : "text-gray-800"
+                    }`}
                     onClick={() => toggleDropdown(nav.title)}
                   >
                     {nav.title}
@@ -141,7 +150,12 @@ export default function Navbar() {
                   )}
                 </>
               ) : (
-                <Link href={nav.href} className="block py-2 font-semibold">
+                <Link
+                  href={nav.href}
+                  className={`block py-2 font-semibold transition-colors hover:text-green-600 ${
+                    isActive(nav.href) ? "text-green-600" : "text-gray-800"
+                  }`}
+                >
                   {nav.title}
                 </Link>
               )}
