@@ -114,7 +114,7 @@ export async function POST(req) {
     }
 
     // Tambahkan URL file ke kolom file_path
-    const filePathValue = JSON.stringify(','); // Bisa juga pakai .join(', ') kalau hanya string biasa
+    const filePathValue = uploadedFilePaths.join(',');
     await connection.execute(
       `UPDATE pendaftar_siswa SET file_path = ? WHERE id_siswa = ?`,
       [filePathValue, pendaftarId]
