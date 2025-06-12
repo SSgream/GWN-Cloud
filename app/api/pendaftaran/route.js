@@ -1,6 +1,7 @@
 import mysql from 'mysql2/promise';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { v4 as uuidv4 } from 'uuid';
+import { NextResponse } from 'next/server';
 
 const s3 = new S3Client({
   region: process.env.AWS_REGION,
@@ -13,6 +14,7 @@ const s3 = new S3Client({
 const bucketName = process.env.AWS_BUCKET_NAME;
 
 export async function POST(req) {
+  let connection;
   try {
     const form = await req.formData();
 
@@ -24,7 +26,7 @@ export async function POST(req) {
       }
     }
 
-    const connection = await mysql.createConnection({
+    connection = await mysql.createConnection({
       host: process.env.DB_HOST,
       user: process.env.DB_USER,
       password: process.env.DB_PASS,
@@ -65,7 +67,7 @@ export async function POST(req) {
     );
     const ibuId = ibuResult.insertId;
 
-    // Insert data pendaftar_siswa tanpa file_paths dulu
+    // Insert data pendaftar_siswa
     const [pendaftarResult] = await connection.execute(
       `INSERT INTO pendaftar_siswa
         (nama_lengkap, nama_panggilan, tempat_lahir, tanggal_lahir, jenis_kelamin, anak_ke, jumlah_saudara, agama, status_dalam_keluarga, kewarganegaraan, id_ayah, id_ibu, created_at)
@@ -87,17 +89,14 @@ export async function POST(req) {
     );
 
     const pendaftarId = pendaftarResult.insertId;
-
-    // Ambil semua file dengan key 'berkas' dari formData
     const files = form.getAll('berkas');
     const uploadedFilePaths = [];
 
     for (const file of files) {
-      if (!(file instanceof File)) continue; // Pastikan ini file
+      if (typeof file.name !== 'string' || typeof file.arrayBuffer !== 'function') continue;
 
       const fileExtension = file.name.split('.').pop();
       const uniqueFileName = `pendaftaran/${pendaftarId}/${uuidv4()}.${fileExtension}`;
-
       const arrayBuffer = await file.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
 
@@ -110,37 +109,27 @@ export async function POST(req) {
 
       await s3.send(new PutObjectCommand(uploadParams));
 
-      uploadedFilePaths.push(uniqueFileName);
+      const s3Url = `https://${bucketName}.s3.${process.env.AWS_REGION}.amazonaws.com/${uniqueFileName}`;
+      uploadedFilePaths.push(s3Url);
     }
 
-    // Update file_paths di database (JSON array string)
-    if (uploadedFilePaths.length > 0) {
-      await connection.execute(
-        `UPDATE pendaftar_siswa SET file_path = ? WHERE id_siswa = ?`,
-        [JSON.stringify(uploadedFilePaths), pendaftarId]
-      );
-    }
-
-    await connection.end();
-
-    return new Response(
-      JSON.stringify({
-        message: 'Pendaftaran berhasil!',
-        id_pendaftar_siswa: pendaftarId,
-        files: uploadedFilePaths,
-      }),
-      {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      }
+    // Tambahkan URL file ke kolom file_path
+    const filePathValue = JSON.stringify(','); // Bisa juga pakai .join(', ') kalau hanya string biasa
+    await connection.execute(
+      `UPDATE pendaftar_siswa SET file_path = ? WHERE id_siswa = ?`,
+      [filePathValue, pendaftarId]
     );
+
+    return NextResponse.json({
+      message: 'Pendaftaran berhasil!',
+      id_pendaftar_siswa: pendaftarId,
+      files: uploadedFilePaths,
+    }, { status: 200 });
+
   } catch (err) {
-    return new Response(
-      JSON.stringify({ error: err.message }),
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+    console.error('Error:', err);
+    return NextResponse.json({ error: err.message }, { status: 500 });
+  } finally {
+    if (connection) await connection.end();
   }
 }
