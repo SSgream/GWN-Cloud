@@ -111,7 +111,7 @@ export default function KegiatanPage() {
 
       {/* Modal */}
       {selectedKegiatan && (
-        <div className="fixed inset-0 z-30 flex items-center justify-center bg-opacity-50">
+        <div className="fixed inset-0 z-30 flex items-center bg-black/40 backdrop-blur-sm justify-center bg-opacity-50">
           <div className="bg-gradient-to-r from-lime-300 to-lime-100 w-[700px] max-w-full rounded-xl shadow-xl border border-gray-200 overflow-hidden flex flex-col md:flex-row min-h-[400px]">
             <div className="md:w-1/2 bg-gray-100 flex items-center justify-center p-4">
               <Image

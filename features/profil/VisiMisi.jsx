@@ -55,7 +55,7 @@ export default function VisiMisi() {
 
       {/* Modal yang menampilkan Visi dan Misi lengkap */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center px-4 bg-opacity-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4 bg-opacity-50">
           <div className="bg-gradient-to-br from-[#80C904] via-[#80C904] to-[#3F6302] text-white rounded-2xl shadow-2xl w-full max-w-3xl p-6 md:p-10 text-center overflow-auto max-h-[90vh] border-4 border-white">
 
             <h3 className="text-2xl font-bold mb-6">Visi</h3>
